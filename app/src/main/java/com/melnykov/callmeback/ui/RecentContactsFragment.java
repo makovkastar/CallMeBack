@@ -1,6 +1,5 @@
 package com.melnykov.callmeback.ui;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.app.LoaderManager;
@@ -18,8 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;

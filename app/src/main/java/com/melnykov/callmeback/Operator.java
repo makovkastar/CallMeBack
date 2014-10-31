@@ -1,10 +1,11 @@
 package com.melnykov.callmeback;
 
 public class Operator {
-    final int id;
-    final int nameResId;
-    final int logoResId;
-    final String recallPattern;
+
+    private final int id;
+    private final int nameResId;
+    private final int logoResId;
+    private final String recallPattern;
 
     public Operator(int id, int nameResId, int logoResId, String recallPattern) {
         this.id = id;

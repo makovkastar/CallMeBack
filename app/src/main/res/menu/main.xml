@@ -5,8 +5,8 @@
 
     <item
         android:id="@+id/action_change_operator"
-        android:title="@string/action_change_operator"
         android:icon="@drawable/ic_sim_card_white_24dp"
+        android:title="@string/action_change_operator"
         app:showAsAction="ifRoom"/>
 
     <item
