@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Call Me Back</string>
+    <string name="app_name">Перезвони мне</string>
 
     <!-- Menu -->
-    <string name="action_settings">Settings</string>
-    <string name="action_change_operator">Change a network operator</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_change_operator">Изменить оператора</string>
 
-    <string name="no_recent_contacts">No recent contacts</string>
-    <string name="recent_contacts">Recent contacts</string>
-    <string name="all_contacts">ALL CONTACTS</string>
+    <string name="no_recent_contacts">Нет последних контаков</string>
+    <string name="recent_contacts">Недавние контакты</string>
+    <string name="all_contacts">ВСЕ КОНТАКТЫ</string>
 
     <!-- Operators -->
+    <string name="kyivstar">Киевстар</string>
     <string name="mts_ua">МТС-Украина</string>
     <string name="beeline_ua">Beeline Украина</string>
+    <string name="djuice">Djuice</string>
+    <string name="life_ua">life:) Украина</string>
+    <string name="utel">Utel</string>
 
-    <array name="operators">
-        <item>Beeline Украина</item>
-        <item>Djuice</item>
-        <item>life:) Украина</item>
-        <item>Киевстар</item>
-        <item>MTC-Украина</item>
-        <item>Utel</item>
-        <item>MTC-Россия</item>
-    </array>
 </resources>

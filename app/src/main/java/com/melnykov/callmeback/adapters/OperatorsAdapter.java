@@ -13,8 +13,12 @@ import com.melnykov.callmeback.R;
 public class OperatorsAdapter extends BaseAdapter {
 
     private static final Operator[] mOperators = new Operator[] {
-        new Operator(0, R.string.mts_ua, R.drawable.mts_ua, "*104*%s#"),
-        new Operator(1, R.string.beeline_ua, R.drawable.beeline_ua, "")
+        new Operator(0, R.string.kyivstar, R.drawable.kyivstar, null),
+        new Operator(1, R.string.mts_ua, R.drawable.mts_ua, "*104*%s#"),
+        new Operator(2, R.string.beeline_ua, R.drawable.beeline_ua, null),
+        new Operator(3, R.string.djuice, 0, null),
+        new Operator(4, R.string.life_ua, 0, null),
+        new Operator(5, R.string.utel, 0, null)
     };
 
     private final Context mContext;

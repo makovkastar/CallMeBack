@@ -29,4 +29,21 @@ public class Operator {
     public String getRecallPattern() {
         return recallPattern;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Operator operator = (Operator) o;
+
+        if (id != operator.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
