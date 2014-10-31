@@ -3,7 +3,7 @@
 
     <objectAnimator
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="@android:integer/config_longAnimTime"
+        android:duration="@android:integer/config_mediumAnimTime"
         android:propertyName="scaleX"
         android:valueFrom="0"
         android:valueTo="1"
@@ -11,7 +11,7 @@
 
     <objectAnimator
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="@android:integer/config_longAnimTime"
+        android:duration="@android:integer/config_mediumAnimTime"
         android:propertyName="scaleY"
         android:valueFrom="0"
         android:valueTo="1"
