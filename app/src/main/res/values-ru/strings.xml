@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Перезвони мне</string>
+
+    <!-- Menu -->
+    <string name="action_settings">Настройки</string>
+    <string name="action_change_operator">Изменить оператора</string>
+
+    <string name="no_recent_contacts">Нет последних контаков</string>
+    <string name="recent_contacts">Недавние контакты</string>
+    <string name="all_contacts">ВСЕ КОНТАКТЫ</string>
+
+</resources>

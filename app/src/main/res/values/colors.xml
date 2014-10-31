@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#00bcd4</color>
+    <color name="primary_dark">#00acc1</color>
+    <color name="accent">#ffc107</color>
+    <color name="accent_light">#ffca28</color>
+
+    <color name="font_title">#212121</color>
+    <color name="font_subhead">#727272</color>
+    <color name="divider">#dadada</color>
+
+    <color name="window_background">#fafafa</color>
+</resources>
