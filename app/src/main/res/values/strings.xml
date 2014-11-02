@@ -25,6 +25,17 @@
     <string name="djuice">Djuice</string>
     <string name="life_ua">life:) Украина</string>
     <string name="utel">Utel</string>
+    <string name="mts_ru">МТС Россия</string>
+    <string name="beeline_ru">Beeline Россия</string>
+    <string name="megafon">Мегафон</string>
+    <string name="rostelecom">Ростелеком</string>
+    <string name="tele2_ru">Теле2 Россия</string>
+    <string name="motiv">Мотив</string>
+    <string name="smarts">Смартс</string>
+    <string name="nss">НСС</string>
+    <string name="bwc">Байкалвестком</string>
+    <string name="akoc">AKOC GSM</string>
+    <string name="etk">Енисейтелеком</string>
 
     <string name="welcome_text"><![CDATA[
         <b>«Перезвони мне»</b> поможет отправить запрос о необходимости перезвонить, если на счету закончились деньги.
@@ -45,4 +56,5 @@
     ]]></string>
     <string name="rate">Оценить</string>
     <string name="close">Закрыть</string>
+    <string name="justtotalk">Просто для общения</string>
 </resources>
