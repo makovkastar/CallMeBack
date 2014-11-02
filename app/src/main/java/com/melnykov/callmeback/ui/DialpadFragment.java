@@ -8,6 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,6 +42,7 @@ public class DialpadFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         int index = Prefs.getOperatorIndex(getActivity().getApplicationContext());
         mOperator = Operators.list().get(index);
@@ -74,6 +78,23 @@ public class DialpadFragment extends Fragment {
                 dialSelectedNumber(mPhoneNumber.getText().toString());
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.dialpad, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_recent_contacts:
+                ((MainActivity) getActivity()).onHideDialpad();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onDigitClick(Button button) {
