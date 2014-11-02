@@ -66,6 +66,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onHideDialpad() {
+        // Pop a back stack because currently transaction Recent contacts -> Dialpad is saved and must be removed.
+        getSupportFragmentManager().popBackStack();
+
         getSupportFragmentManager().beginTransaction()
             .setCustomAnimations(R.anim.fragment_enter_top, R.anim.fragment_exit_top)
             .replace(R.id.container, new RecentContactsFragment(), RecentContactsFragment.TAG)
