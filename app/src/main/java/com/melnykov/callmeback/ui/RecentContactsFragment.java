@@ -1,15 +1,17 @@
 package com.melnykov.callmeback.ui;
 
 import android.app.Activity;
-import android.app.ListFragment;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,13 +21,15 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.TextView;
 
-import com.melnykov.callmeback.CallLogItem;
-import com.melnykov.callmeback.CallLogQuery;
-import com.melnykov.callmeback.DialHelper;
+import com.melnykov.callmeback.Operators;
+import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.adapters.CallLogAdapter;
+import com.melnykov.callmeback.model.CallLogItem;
+import com.melnykov.callmeback.model.Operator;
+import com.melnykov.callmeback.queries.CallLogQuery;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -35,6 +39,8 @@ import java.util.Set;
 
 public class RecentContactsFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
+    public static final String TAG = "RecentContactsFragment";
+
     private static final int PICK_CONTACT_REQUEST = 1;
     private static final int MAX_RECENT_CONTACTS = 20;
 
@@ -43,16 +49,16 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
     private CallLogAdapter mAdapter;
     private Uri mContactUri;
+    private Operator mOperator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_recent_contacts, container, false);
 
-        View headerView = inflater.inflate(R.layout.all_contacts_view, null);
-        ListView listView = (ListView) root.findViewById(android.R.id.list);
-        listView.addHeaderView(headerView, null, false);
+        TextView emptyView = (TextView) root.findViewById(android.R.id.empty);
+        emptyView.setText(Html.fromHtml(getString(R.string.no_recent_contacts)));
 
-        Button allContacts = (Button) headerView.findViewById(R.id.all_contacts);
+        Button allContacts = (Button) root.findViewById(R.id.all_contacts);
         allContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +75,13 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
         getListView().setOnItemClickListener(this);
 
-        final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).onShowDialpad();
+            }
+        });
         animateFab(fab);
     }
 
@@ -79,7 +91,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         fab.animate()
             .scaleX(1)
             .scaleY(1)
-            .setDuration(400)
+            .setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime))
             .setInterpolator(new AccelerateInterpolator())
             .setStartDelay(500)
             .start();
@@ -89,6 +101,14 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        int index = Prefs.getOperatorIndex(getActivity().getApplicationContext());
+        mOperator = Operators.list().get(index);
+
+        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(mOperator.getNameResId());
+        }
     }
 
     @Override
@@ -165,8 +185,10 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_change_operator:
-                ((MainActivity) getActivity()).onOperatorChange();
+                ((MainActivity) getActivity()).onChangeOperator();
                 return true;
+            case R.id.action_about:
+                new AboutDialog().show(getFragmentManager(), AboutDialog.TAG);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -185,7 +207,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             while (cursor.moveToNext() && items.size() <= MAX_RECENT_CONTACTS) {
                 String name = cursor.getString(CallLogQuery.CACHED_NAME);
                 String number = cursor.getString(CallLogQuery.NUMBER);
-                items.add(new CallLogItem(name, number, null));
+                items.add(new CallLogItem(name, number));
             }
         }
         return new ArrayList<CallLogItem>(items);
@@ -193,19 +215,20 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // As a list has a header we have to use position - 1.
-        dialSelectedNumber(mAdapter.getItem(position - 1).getNumber());
+        dialSelectedNumber(mAdapter.getItem(position).getNumber());
     }
 
-    private void dialSelectedNumber(String number) {
+    private void dialSelectedNumber(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + Uri.encode(DialHelper.getCallbackNumber(number))));
+        intent.setData(Uri.parse("tel:" + Uri.encode(String.format(mOperator.getRecallPattern(),
+            phoneNumber))));
         startActivity(intent);
     }
 
     private void pickContact() {
-        Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
-        pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+        Intent pickContactIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        // Show user only contacts w/ phone numbers
+        pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
     }
 

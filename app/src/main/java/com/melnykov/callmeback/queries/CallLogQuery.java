@@ -1,4 +1,4 @@
-package com.melnykov.callmeback;
+package com.melnykov.callmeback.queries;
 
 import android.net.Uri;
 import android.provider.CallLog.Calls;
@@ -12,7 +12,7 @@ public class CallLogQuery {
     public static final String SELECTION = Calls.NUMBER + " IS NOT NULL AND " + Calls.NUMBER + " != '' ";
     public static final String SORT_ORDER = Calls.DEFAULT_SORT_ORDER;
 
-    public static final String[] PROJECTION = new String[] {
+    public static final String[] PROJECTION = new String[]{
         Calls._ID,
         Calls.NUMBER,
         Calls.CACHED_NAME

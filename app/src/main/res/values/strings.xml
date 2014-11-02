@@ -4,19 +4,44 @@
     <string name="app_name">Перезвони мне</string>
 
     <!-- Menu -->
-    <string name="action_settings">Настройки</string>
+    <string name="action_about">О программе</string>
     <string name="action_change_operator">Изменить оператора</string>
 
-    <string name="no_recent_contacts">Нет последних контаков</string>
+    <string name="select_operator">Выбор оператора</string>
+    <string name="manual_dial">Набор номера</string>
+    <string name="no_recent_contacts"><![CDATA[
+        <b>Нет последних контактов.</b>
+        <br/>
+        Вы можете выбрать контакт из телефонной книги или набрать номер вручную.
+    ]]></string>
     <string name="recent_contacts">Недавние контакты</string>
     <string name="all_contacts">ВСЕ КОНТАКТЫ</string>
 
     <!-- Operators -->
     <string name="kyivstar">Киевстар</string>
-    <string name="mts_ua">МТС-Украина</string>
+    <string name="mts_ua">МТС Украина</string>
     <string name="beeline_ua">Beeline Украина</string>
     <string name="djuice">Djuice</string>
     <string name="life_ua">life:) Украина</string>
     <string name="utel">Utel</string>
 
+    <string name="welcome_text"><![CDATA[
+        <b>«Перезвони мне»</b> поможет отправить запрос о необходимости перезвонить, если на счету закончились деньги.
+        Теперь нет необходимости запоминать длинные коды запросов, достаточно выбрать нужный контакт.
+        <br/>
+        <br/>
+        Выберите из списка вашего мобильного оператора и нажмите <b>«Далее»</b>.
+    ]]></string>
+    <string name="about_title" translatable="false"><![CDATA[
+        <b>%1$s</b>&nbsp;<font color="#888888">v%2$s</font>
+    ]]></string>
+    <string name="about_message"><![CDATA[
+        Разработчик - <a href="https://plus.google.com/+OleksandrMelnykov">Александр Мельников</a>.
+        Все права защищены.
+    ]]></string>
+    <string name="phone_number_hint"><![CDATA[
+        Наберите номер получателя и нажмите <b>«Готово»</b>.
+    ]]></string>
+    <string name="rate">Оценить</string>
+    <string name="close">Закрыть</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.melnykov.callmeback;
+package com.melnykov.callmeback.queries;
 
 
 import android.provider.ContactsContract.PhoneLookup;
@@ -8,7 +8,7 @@ import android.provider.ContactsContract.PhoneLookup;
  */
 public class PhoneQuery {
 
-    public static final String[] PROJECTION = new String[] {
+    public static final String[] PROJECTION = new String[]{
         PhoneLookup._ID,
         PhoneLookup.LOOKUP_KEY
     };

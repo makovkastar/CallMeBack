@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:fab="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/recent_contacts_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:drawSelectorOnTop="false"/>
+        android:layout_below="@id/header"
+        android:drawSelectorOnTop="false" />
 
     <TextView
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:text="@string/no_recent_contacts"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textColor="@color/font_subhead"
+        android:textSize="@dimen/font_subhead" />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_dialpad_white_24dp"
         fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_light"/>
+        fab:fab_colorPressed="@color/accent_dark"
+        fab:fab_colorRipple="@color/accent_light" />
 
-</FrameLayout>
+</RelativeLayout>

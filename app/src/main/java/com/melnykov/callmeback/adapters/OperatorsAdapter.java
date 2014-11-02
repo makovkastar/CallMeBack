@@ -7,19 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 
-import com.melnykov.callmeback.Operator;
+import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.R;
+import com.melnykov.callmeback.model.Operator;
 
 public class OperatorsAdapter extends BaseAdapter {
-
-    private static final Operator[] mOperators = new Operator[] {
-        new Operator(0, R.string.kyivstar, R.drawable.kyivstar, null),
-        new Operator(1, R.string.mts_ua, R.drawable.mts_ua, "*104*%s#"),
-        new Operator(2, R.string.beeline_ua, R.drawable.beeline_ua, null),
-        new Operator(3, R.string.djuice, 0, null),
-        new Operator(4, R.string.life_ua, 0, null),
-        new Operator(5, R.string.utel, 0, null)
-    };
 
     private final Context mContext;
 
@@ -29,12 +21,12 @@ public class OperatorsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mOperators.length;
+        return Operators.list().size();
     }
 
     @Override
     public Operator getItem(int position) {
-        return mOperators[position];
+        return Operators.list().get(position);
     }
 
     @Override

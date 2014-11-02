@@ -1,4 +1,4 @@
-package com.melnykov.callmeback;
+package com.melnykov.callmeback.model;
 
 import android.telephony.PhoneNumberUtils;
 
@@ -6,12 +6,10 @@ public class CallLogItem {
 
     private final String name;
     private final String number;
-    private final String photoUri;
 
-    public CallLogItem(String name, String number, String photoUri) {
+    public CallLogItem(String name, String number) {
         this.name = name;
         this.number = number;
-        this.photoUri = photoUri;
     }
 
     public String getName() {

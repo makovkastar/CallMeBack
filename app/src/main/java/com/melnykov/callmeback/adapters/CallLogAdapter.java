@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.makeramen.RoundedTransformationBuilder;
-import com.melnykov.callmeback.CallLogItem;
-import com.melnykov.callmeback.PhoneQuery;
 import com.melnykov.callmeback.R;
+import com.melnykov.callmeback.model.CallLogItem;
+import com.melnykov.callmeback.queries.PhoneQuery;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -30,12 +30,12 @@ import java.util.concurrent.Executors;
 public class CallLogAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private List<CallLogItem> mItems;
-    private boolean mLoading;
     private final Map<String, Uri> mContactUriCache;
     private final ExecutorService mExecutorService;
     private final Handler mHandler;
     private final Transformation mAvatarTransformation;
+    private List<CallLogItem> mItems;
+    private boolean mLoading;
 
     public CallLogAdapter(Context context) {
         mContext = context;
@@ -82,7 +82,7 @@ public class CallLogAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.contact_list_item, parent, false);
+                R.layout.contact_list_item, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.number = (TextView) convertView.findViewById(R.id.number);
@@ -162,6 +162,12 @@ public class CallLogAdapter extends BaseAdapter {
         return lookupUri;
     }
 
+    static class ViewHolder {
+        ImageView avatar;
+        TextView name;
+        TextView number;
+    }
+
     private class ContactUriFetcher implements Runnable {
 
         private final String phoneNumber;
@@ -176,11 +182,5 @@ public class CallLogAdapter extends BaseAdapter {
             mContactUriCache.put(phoneNumber, contactUri);
             mHandler.sendEmptyMessage(0);
         }
-    }
-
-    static class ViewHolder {
-        ImageView avatar;
-        TextView name;
-        TextView number;
     }
 }
