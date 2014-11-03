@@ -59,17 +59,17 @@
         <br/>
         Выберите из списка вашего мобильного оператора и нажмите <b>«Далее»</b>.
     ]]></string>
-    <string name="about_title" translatable="false"><![CDATA[
-        <b>%1$s</b>&nbsp;<font color="#888888">v%2$s</font>
-    ]]></string>
+    <string name="about_title" translatable="false">%1$s v%2$s</string>
     <string name="about_message"><![CDATA[
+        «Перезвони мне» - это бесплатное приложение с открытым <a href="https://github.com/makovkastar/CallMeBack">исходным кодом</a>.
+        <br/>
         Разработчик - <a href="https://plus.google.com/+OleksandrMelnykov">Александр Мельников</a>.
         Все права защищены.
     ]]></string>
     <string name="phone_number_hint"><![CDATA[
         Наберите номер получателя и нажмите <b>«Готово»</b>.
     ]]></string>
-    <string name="rate">Оценить</string>
+    <string name="rate">Оценить в Play Store</string>
     <string name="close">Закрыть</string>
 
     <!-- Toasts -->

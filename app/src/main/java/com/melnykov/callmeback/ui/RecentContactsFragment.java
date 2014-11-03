@@ -2,6 +2,8 @@ package com.melnykov.callmeback.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
@@ -46,6 +49,8 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
     private static final int LOADER_CALL_LOG = 0;
     private static final int LOADER_PHONE_NUMBER = 1;
+
+    private static final String VERSION_UNAVAILABLE = "N/A";
 
     private CallLogAdapter mAdapter;
     private Uri mContactUri;
@@ -185,10 +190,47 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 ((MainActivity) getActivity()).onChangeOperator();
                 return true;
             case R.id.action_about:
-                new AboutDialog().show(getFragmentManager(), AboutDialog.TAG);
+                showAboutDialog();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showAboutDialog() {
+        new MaterialDialog.Builder(getActivity())
+            .title(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
+            .content(Html.fromHtml(getString(R.string.about_message)))
+            .positiveText(R.string.rate)
+            .positiveColorRes(R.color.font_button)
+            .neutralText(R.string.close)
+            .callback(new MaterialDialog.FullCallback() {
+                @Override
+                public void onNeutral() {
+                }
+
+                @Override
+                public void onPositive() {
+                    // TODO: start Play Store
+                }
+
+                @Override
+                public void onNegative() {
+                }
+            })
+            .build()
+            .show();
+    }
+
+    public String getVersionName() {
+        String versionName;
+        try {
+            PackageInfo info = getActivity().getPackageManager().getPackageInfo(getActivity()
+                .getPackageName(), 0);
+            versionName = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            versionName = VERSION_UNAVAILABLE;
+        }
+        return versionName;
     }
 
     @Override
