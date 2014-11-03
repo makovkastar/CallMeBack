@@ -19,7 +19,6 @@
     <string name="all_contacts">ВСЕ КОНТАКТЫ</string>
 
     <!-- Operators -->
-
     <!-- Ukraine -->
     <string name="kyivstar">Киевстар</string>
     <string name="mts_ua">МТС Украина</string>
@@ -72,4 +71,7 @@
     ]]></string>
     <string name="rate">Оценить</string>
     <string name="close">Закрыть</string>
+
+    <!-- Toasts -->
+    <string name="toast_invalid_number">Проверьте правильность номера</string>
 </resources>

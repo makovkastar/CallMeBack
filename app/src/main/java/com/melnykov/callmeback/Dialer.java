@@ -9,7 +9,7 @@ public class Dialer {
     }
 
     public static String getValidNumber(Operator operator, String phoneNumber) {
-        phoneNumber = phoneNumber.replace("-", "");
+        phoneNumber = stripNumber(phoneNumber);
 
         switch (operator.getCountry()) {
             case UKRAINE:
@@ -52,7 +52,7 @@ public class Dialer {
 
     public static boolean isNumberValid(Operator operator, String phoneNumber) {
         boolean isValid = false;
-        phoneNumber = phoneNumber.replace("-", "");
+        phoneNumber = stripNumber(phoneNumber);
 
         switch (operator.getCountry()) {
             case UKRAINE:
@@ -88,5 +88,15 @@ public class Dialer {
         isValid &= phoneNumber.matches("[0-9]+");
 
         return isValid;
+    }
+
+    public static boolean isNumberEntered(String phoneNumber) {
+        phoneNumber = stripNumber(phoneNumber);
+        return phoneNumber.length() > 9;
+    }
+
+    private static String stripNumber(String phoneNumber) {
+        return phoneNumber.replace("-", "")
+            .replace(" ", "");
     }
 }

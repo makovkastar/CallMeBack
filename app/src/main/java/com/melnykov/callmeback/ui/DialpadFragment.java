@@ -84,11 +84,11 @@ public class DialpadFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
                 String phoneNumber = editable.toString();
                 if (Dialer.isNumberValid(mOperator, phoneNumber)) {
-                    animateHeader(getResources().getColor(R.color.valid));
-                } else if (phoneNumber.length() > 9) {
-                    animateHeader(getResources().getColor(R.color.invalid));
+                    animateHeader(getResources().getColor(R.color.valid), 0);
+                } else if (Dialer.isNumberEntered(phoneNumber)) {
+                    animateHeader(getResources().getColor(R.color.invalid), 0);
                 } else {
-                    animateHeader(getResources().getColor(R.color.accent));
+                    animateHeader(getResources().getColor(R.color.accent), 0);
                 }
             }
         });
@@ -118,6 +118,7 @@ public class DialpadFragment extends Fragment {
                 if (Dialer.isNumberValid(mOperator, phoneNumber)) {
                     dialSelectedNumber(phoneNumber);
                 } else {
+                    animateHeader(getResources().getColor(R.color.invalid), 3);
                     showPhoneNumberError();
                 }
             }
@@ -153,10 +154,10 @@ public class DialpadFragment extends Fragment {
     }
 
     private void showPhoneNumberError() {
-        Toast.makeText(getActivity(), "Проверьте правильность номера", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getString(R.string.toast_invalid_number), Toast.LENGTH_SHORT).show();
     }
 
-    private void animateHeader(int colorTo) {
+    private void animateHeader(int colorTo, int repeatCount) {
         int colorFrom = ((ColorDrawable) mHeader.getBackground()).getColor();
 
         if (colorFrom == colorTo) return;
@@ -169,6 +170,10 @@ public class DialpadFragment extends Fragment {
                 mHeader.setBackgroundColor((Integer) animator.getAnimatedValue());
             }
         });
+        if (repeatCount > 0) {
+            colorAnimation.setRepeatCount(repeatCount);
+            colorAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        }
         colorAnimation.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
         colorAnimation.start();
     }
