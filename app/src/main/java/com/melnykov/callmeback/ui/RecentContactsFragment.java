@@ -112,16 +112,20 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         int operatorId = Prefs.getOperatorId(getActivity().getApplicationContext());
         mOperator = Operators.getById(operatorId);
 
-        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(mOperator.getNameResId());
-        }
-
         mAdapter = new CallLogAdapter(getActivity());
         mAdapter.setLoading(true);
         setListAdapter(mAdapter);
 
         getLoaderManager().initLoader(LOADER_CALL_LOG, null, this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(mOperator.getNameResId());
+        }
     }
 
     @Override

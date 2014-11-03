@@ -43,15 +43,7 @@ public class DialpadFragment extends Fragment {
     private ImageView mHeader;
     private Toast mErrorToast;
     private boolean mIsAnimationRunning = false;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ActionBar actionBar = ((MainActivity) activity).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.manual_dial);
-        }
-    }
+    private ValueAnimator mColorAnimation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,9 +55,17 @@ public class DialpadFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.manual_dial);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_dialpad, container, false);
-        return root;
+        return inflater.inflate(R.layout.fragment_dialpad, container, false);
     }
 
     @Override
@@ -89,11 +89,11 @@ public class DialpadFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
                 String phoneNumber = editable.toString();
                 if (Dialer.isNumberValid(mOperator, phoneNumber)) {
-                    animateHeader(getResources().getColor(R.color.valid), 0);
+                    animateHeader(getResources().getColor(R.color.valid), 0, true);
                 } else if (Dialer.isNumberEntered(phoneNumber)) {
-                    animateHeader(getResources().getColor(R.color.invalid), 0);
+                    animateHeader(getResources().getColor(R.color.invalid), 0, true);
                 } else {
-                    animateHeader(getResources().getColor(R.color.accent), 0);
+                    animateHeader(getResources().getColor(R.color.accent), 0, false);
                 }
             }
         });
@@ -124,7 +124,7 @@ public class DialpadFragment extends Fragment {
                 if (Dialer.isNumberValid(mOperator, phoneNumber)) {
                     dialSelectedNumber(phoneNumber);
                 } else {
-                    animateHeader(getResources().getColor(R.color.invalid), 3);
+                    animateHeader(getResources().getColor(R.color.invalid), 3, false);
                     showPhoneNumberError();
                 }
             }
@@ -168,20 +168,23 @@ public class DialpadFragment extends Fragment {
         mErrorToast.show();
     }
 
-    private void animateHeader(final int colorTo, final int repeatCount) {
+    private void animateHeader(final int colorTo, final int repeatCount, boolean cancelPrevious) {
         final int colorFrom = ((ColorDrawable) mHeader.getBackground()).getColor();
 
-        if (colorFrom == colorTo || mIsAnimationRunning) return;
+        if (colorFrom == colorTo || (mIsAnimationRunning && !cancelPrevious)) return;
 
-        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        if (mColorAnimation != null) {
+            mColorAnimation.cancel();
+        }
+        mColorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        mColorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 mHeader.setBackgroundColor((Integer) animator.getAnimatedValue());
             }
         });
-        colorAnimation.addListener(new AnimatorListenerAdapter() {
+        mColorAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 mIsAnimationRunning = true;
@@ -193,10 +196,10 @@ public class DialpadFragment extends Fragment {
             }
         });
         if (repeatCount > 0) {
-            colorAnimation.setRepeatCount(repeatCount);
-            colorAnimation.setRepeatMode(ValueAnimator.REVERSE);
+            mColorAnimation.setRepeatCount(repeatCount);
+            mColorAnimation.setRepeatMode(ValueAnimator.REVERSE);
         }
-        colorAnimation.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
-        colorAnimation.start();
+        mColorAnimation.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
+        mColorAnimation.start();
     }
 }
