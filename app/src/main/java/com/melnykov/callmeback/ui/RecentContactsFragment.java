@@ -51,6 +51,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     private Uri mContactUri;
     private Operator mOperator;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_recent_contacts, container, false);
@@ -109,11 +110,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         if (actionBar != null) {
             actionBar.setTitle(mOperator.getNameResId());
         }
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
         mAdapter = new CallLogAdapter(getActivity());
         mAdapter.setLoading(true);
@@ -177,8 +173,8 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         mAdapter.stopRequestProcessing();
     }
 

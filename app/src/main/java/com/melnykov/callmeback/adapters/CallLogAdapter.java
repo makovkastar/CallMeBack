@@ -24,6 +24,7 @@ import com.squareup.picasso.Transformation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -96,21 +97,25 @@ public class CallLogAdapter extends BaseAdapter {
         holder.name.setText(TextUtils.isEmpty(item.getName()) ? item.getNumber() : item.getName());
         holder.number.setText(item.getNumber());
 
-        Uri contactUri = mContactUriCache.get(item.getNumber());
-        if (contactUri == null) {
+        if (mContactUriCache.containsKey(item.getNumber())) {
+            Uri contactUri = mContactUriCache.get(item.getNumber());
+            Picasso.with(mContext)
+                .load(contactUri)
+                .placeholder(R.drawable.contact_photo_placeholder)
+                .fit()
+                .centerCrop()
+                .transform(mAvatarTransformation)
+                .into(holder.avatar);
+        } else {
             if (!mExecutorService.isShutdown()) {
                 // Request the contact details immediately since they are currently missing.
                 mExecutorService.submit(new ContactUriFetcher(item.getNumber()));
             }
+            Picasso.with(mContext)
+                .load(R.drawable.contact_photo_placeholder)
+                .fit()
+                .into(holder.avatar);
         }
-
-        Picasso.with(mContext)
-            .load(contactUri)
-            .placeholder(R.drawable.contact_photo_placeholder)
-            .fit()
-            .centerCrop()
-            .transform(mAvatarTransformation)
-            .into(holder.avatar);
 
         return convertView;
     }
