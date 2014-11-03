@@ -102,8 +102,8 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        int index = Prefs.getOperatorIndex(getActivity().getApplicationContext());
-        mOperator = Operators.list().get(index);
+        int operatorId = Prefs.getOperatorId(getActivity().getApplicationContext());
+        mOperator = Operators.getById(operatorId);
 
         ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
@@ -158,6 +158,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 String number = cursor.getString(cursor.getColumnIndex(
                     ContactsContract.CommonDataKinds.Phone.NUMBER));
                 dialSelectedNumber(number);
+                getLoaderManager().destroyLoader(loader.getId());
                 mContactUri = null;
         }
     }

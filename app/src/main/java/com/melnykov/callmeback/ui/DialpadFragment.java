@@ -1,12 +1,17 @@
 package com.melnykov.callmeback.ui;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +21,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
@@ -29,6 +37,7 @@ public class DialpadFragment extends Fragment {
 
     private Operator mOperator;
     private EditText mPhoneNumber;
+    private ImageView mHeader;
 
     @Override
     public void onAttach(Activity activity) {
@@ -44,8 +53,8 @@ public class DialpadFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        int index = Prefs.getOperatorIndex(getActivity().getApplicationContext());
-        mOperator = Operators.list().get(index);
+        int operatorId = Prefs.getOperatorId(getActivity().getApplicationContext());
+        mOperator = Operators.getById(operatorId);
     }
 
     @Override
@@ -58,8 +67,31 @@ public class DialpadFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mHeader = (ImageView) view.findViewById(R.id.header);
+
         mPhoneNumber = (EditText) view.findViewById(R.id.phone_number);
         mPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        mPhoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String phoneNumber = editable.toString();
+                if (Dialer.isNumberValid(mOperator, phoneNumber)) {
+                    animateHeader(getResources().getColor(R.color.valid));
+                } else if (phoneNumber.length() > 9) {
+                    animateHeader(getResources().getColor(R.color.invalid));
+                } else {
+                    animateHeader(getResources().getColor(R.color.accent));
+                }
+            }
+        });
 
         ImageButton backSpace = (ImageButton) view.findViewById(R.id.backspace);
         backSpace.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +101,25 @@ public class DialpadFragment extends Fragment {
                 mPhoneNumber.setText(oldText.subSequence(0, Math.max(0, oldText.length() - 1)));
             }
         });
+        backSpace.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mPhoneNumber.setText("");
+                return true;
+            }
+        });
 
         ImageButton dial = (ImageButton) view.findViewById(R.id.dial);
         dial.setImageDrawable(Utils.getColoredDrawable(getActivity(), R.drawable.ic_phone_forwarded_white_36dp, R.color.primary));
         dial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialSelectedNumber(mPhoneNumber.getText().toString());
+                String phoneNumber = mPhoneNumber.getText().toString();
+                if (Dialer.isNumberValid(mOperator, phoneNumber)) {
+                    dialSelectedNumber(phoneNumber);
+                } else {
+                    showPhoneNumberError();
+                }
             }
         });
     }
@@ -98,13 +142,34 @@ public class DialpadFragment extends Fragment {
     }
 
     public void onDigitClick(Button button) {
-        mPhoneNumber.setText(mPhoneNumber.getText().append(button.getText()));
+        mPhoneNumber.append(button.getText());
     }
 
     private void dialSelectedNumber(String phoneNumber) {
+        String encodedNumber = Uri.encode(Dialer.getValidNumber(mOperator, phoneNumber));
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + Uri.encode(String.format(mOperator.getRecallPattern(),
-            phoneNumber))));
+        intent.setData(Uri.parse("tel:" + encodedNumber));
         startActivity(intent);
+    }
+
+    private void showPhoneNumberError() {
+        Toast.makeText(getActivity(), "Проверьте правильность номера", Toast.LENGTH_SHORT).show();
+    }
+
+    private void animateHeader(int colorTo) {
+        int colorFrom = ((ColorDrawable) mHeader.getBackground()).getColor();
+
+        if (colorFrom == colorTo) return;
+
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                mHeader.setBackgroundColor((Integer) animator.getAnimatedValue());
+            }
+        });
+        colorAnimation.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
+        colorAnimation.start();
     }
 }

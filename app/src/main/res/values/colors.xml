@@ -6,6 +6,8 @@
     <color name="accent">#ffc107</color>
     <color name="accent_dark">#ffb300</color>
     <color name="accent_light">#ffd54f</color>
+    <color name="invalid">#e51c23</color>
+    <color name="valid">#259b24</color>
 
     <color name="font_title">#212121</color>
     <color name="font_subhead">#727272</color>

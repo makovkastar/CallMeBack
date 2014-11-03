@@ -19,12 +19,15 @@
     <string name="all_contacts">ВСЕ КОНТАКТЫ</string>
 
     <!-- Operators -->
+
+    <!-- Ukraine -->
     <string name="kyivstar">Киевстар</string>
     <string name="mts_ua">МТС Украина</string>
     <string name="beeline_ua">Beeline Украина</string>
     <string name="djuice">Djuice</string>
     <string name="life_ua">life:) Украина</string>
     <string name="utel">Utel</string>
+    <!-- Russia -->
     <string name="mts_ru">МТС Россия</string>
     <string name="beeline_ru">Beeline Россия</string>
     <string name="megafon">Мегафон</string>
@@ -36,6 +39,19 @@
     <string name="bwc">Байкалвестком</string>
     <string name="akoc">AKOC GSM</string>
     <string name="etk">Енисейтелеком</string>
+    <string name="justtotalk">Просто для общения</string>
+    <!-- Belarus -->
+    <string name="velcom">Velcom</string>
+    <string name="mts_by">МТС Беларусь</string>
+    <string name="life_by">life:) Беларусь</string>
+    <!-- Moldova -->
+    <string name="idc">IDC</string>
+    <string name="mold_cell">MoldCell</string>
+    <!-- Kazakhstan -->
+    <string name="kcell">KCell</string>
+    <string name="activ_kz">Activ Казахстан</string>
+    <string name="beeline_kz">Beeline Казахстан</string>
+    <string name="tele2_kz">Tele2 Казахстан</string>
 
     <string name="welcome_text"><![CDATA[
         <b>«Перезвони мне»</b> поможет отправить запрос о необходимости перезвонить, если на счету закончились деньги.
@@ -56,5 +72,4 @@
     ]]></string>
     <string name="rate">Оценить</string>
     <string name="close">Закрыть</string>
-    <string name="justtotalk">Просто для общения</string>
 </resources>

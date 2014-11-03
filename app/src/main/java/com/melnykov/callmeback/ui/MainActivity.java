@@ -40,8 +40,8 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void onOperatorSelected(int index) {
-        Prefs.saveOperatorIndex(getApplicationContext(), index);
+    public void onOperatorSelected(int id) {
+        Prefs.saveOperatorId(getApplicationContext(), id);
 
         getSupportFragmentManager().beginTransaction()
             .setCustomAnimations(R.anim.fragment_enter_right, R.anim.fragment_exit_right)

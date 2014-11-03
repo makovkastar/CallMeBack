@@ -13,9 +13,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.adapters.OperatorsAdapter;
+import com.melnykov.callmeback.model.Operator;
 
 public class OperatorsFragment extends ListFragment {
 
@@ -38,15 +40,16 @@ public class OperatorsFragment extends ListFragment {
         setListAdapter(new OperatorsAdapter(getActivity()));
 
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        int operatorIndex = Prefs.isOperatorSelected(context) ? Prefs.getOperatorIndex(context) : 0;
+        int operatorId = Prefs.isOperatorSelected(context) ? Prefs.getOperatorId(context) : 0;
         // ListView has a header view, so positions are shifted by 1.
-        getListView().setItemChecked(operatorIndex + 1, true);
+        getListView().setItemChecked(Operators.getPosition(operatorId) + 1, true);
 
         Button next = (Button) view.findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).onOperatorSelected(getListView().getCheckedItemPosition() - 1);
+                Operator operator = getListAdapter().getItem(getListView().getCheckedItemPosition() - 1);
+                ((MainActivity) getActivity()).onOperatorSelected(operator.getId());
             }
         });
     }
