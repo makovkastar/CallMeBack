@@ -8,7 +8,7 @@ public class Dialer {
         // Prevent instantiation
     }
 
-    public static String getValidNumber(Operator operator, String phoneNumber) {
+    public static String getRecallNumber(Operator operator, String phoneNumber) {
         phoneNumber = stripNumber(phoneNumber);
 
         switch (operator.getCountry()) {
@@ -47,7 +47,7 @@ public class Dialer {
                 }
         }
 
-        return phoneNumber;
+        return String.format(operator.getRecallPattern(), phoneNumber);
     }
 
     public static boolean isNumberValid(Operator operator, String phoneNumber) {

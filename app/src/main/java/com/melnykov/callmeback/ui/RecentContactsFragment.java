@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
@@ -258,9 +259,9 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     }
 
     private void dialSelectedNumber(String phoneNumber) {
+        String encodedNumber = Uri.encode(Dialer.getRecallNumber(mOperator, phoneNumber));
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + Uri.encode(String.format(mOperator.getRecallPattern(),
-            phoneNumber))));
+        intent.setData(Uri.parse("tel:" + encodedNumber));
         startActivity(intent);
     }
 

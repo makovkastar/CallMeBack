@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -154,7 +153,7 @@ public class DialpadFragment extends Fragment {
     }
 
     private void dialSelectedNumber(String phoneNumber) {
-        String encodedNumber = Uri.encode(Dialer.getValidNumber(mOperator, phoneNumber));
+        String encodedNumber = Uri.encode(Dialer.getRecallNumber(mOperator, phoneNumber));
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + encodedNumber));
         startActivity(intent);
