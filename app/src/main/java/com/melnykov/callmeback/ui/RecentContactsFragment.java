@@ -42,7 +42,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     public static final String TAG = "RecentContactsFragment";
 
     private static final int PICK_CONTACT_REQUEST = 1;
-    private static final int MAX_RECENT_CONTACTS = 20;
+    private static final int MAX_RECENT_CONTACTS = 40;
 
     private static final int LOADER_CALL_LOG = 0;
     private static final int LOADER_PHONE_NUMBER = 1;
