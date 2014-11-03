@@ -1,5 +1,7 @@
 package com.melnykov.callmeback.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -7,11 +9,13 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,6 +42,8 @@ public class DialpadFragment extends Fragment {
     private Operator mOperator;
     private EditText mPhoneNumber;
     private ImageView mHeader;
+    private Toast mErrorToast;
+    private boolean mIsAnimationRunning = false;
 
     @Override
     public void onAttach(Activity activity) {
@@ -110,7 +116,8 @@ public class DialpadFragment extends Fragment {
         });
 
         ImageButton dial = (ImageButton) view.findViewById(R.id.dial);
-        dial.setImageDrawable(Utils.getColoredDrawable(getActivity(), R.drawable.ic_phone_forwarded_white_36dp, R.color.primary));
+        dial.setImageDrawable(Utils.getColoredDrawable(getActivity(), R.drawable.ic_phone_forwarded_white_36dp,
+            R.color.primary));
         dial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,13 +161,18 @@ public class DialpadFragment extends Fragment {
     }
 
     private void showPhoneNumberError() {
-        Toast.makeText(getActivity(), getString(R.string.toast_invalid_number), Toast.LENGTH_SHORT).show();
+        if (mErrorToast == null) {
+            mErrorToast = Toast.makeText(getActivity(), getString(R.string.toast_invalid_number),
+                Toast.LENGTH_SHORT);
+            mErrorToast.setGravity(Gravity.CENTER, 0, 0);
+        }
+        mErrorToast.show();
     }
 
-    private void animateHeader(int colorTo, int repeatCount) {
-        int colorFrom = ((ColorDrawable) mHeader.getBackground()).getColor();
+    private void animateHeader(final int colorTo, final int repeatCount) {
+        final int colorFrom = ((ColorDrawable) mHeader.getBackground()).getColor();
 
-        if (colorFrom == colorTo) return;
+        if (colorFrom == colorTo || mIsAnimationRunning) return;
 
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -168,6 +180,17 @@ public class DialpadFragment extends Fragment {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 mHeader.setBackgroundColor((Integer) animator.getAnimatedValue());
+            }
+        });
+        colorAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mIsAnimationRunning = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mIsAnimationRunning = false;
             }
         });
         if (repeatCount > 0) {
