@@ -30,6 +30,7 @@ import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
+import com.melnykov.callmeback.Utils;
 import com.melnykov.callmeback.adapters.CallLogAdapter;
 import com.melnykov.callmeback.model.CallLogItem;
 import com.melnykov.callmeback.model.Operator;
@@ -206,20 +207,17 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             .title(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
             .content(Html.fromHtml(getString(R.string.about_message)))
             .positiveText(R.string.rate)
-            .positiveColorRes(R.color.font_button)
-            .neutralText(R.string.close)
-            .callback(new MaterialDialog.FullCallback() {
+            .positiveColorRes(R.color.primary)
+            .negativeText(R.string.close)
+            .callback(new MaterialDialog.Callback() {
                 @Override
-                public void onNeutral() {
+                public void onPositive(MaterialDialog dialog) {
+                    Utils.startPlayStore(getActivity());
                 }
 
                 @Override
-                public void onPositive() {
-                    // TODO: start Play Store
-                }
-
-                @Override
-                public void onNegative() {
+                public void onNegative(MaterialDialog dialog) {
+                    // NOP
                 }
             })
             .build()
@@ -266,14 +264,22 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         String encodedNumber = Uri.encode(Dialer.getRecallNumber(mOperator, phoneNumber));
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + encodedNumber));
-        startActivity(intent);
+        if (Utils.isIntentResolvable(getActivity().getApplicationContext(), intent)) {
+            startActivity(intent);
+        } else {
+            Utils.showDialerNotInstalledDialog(getActivity());
+        }
     }
 
     private void pickContact() {
         Intent pickContactIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         // Show user only contacts w/ phone numbers
         pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-        startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+        if (Utils.isIntentResolvable(getActivity().getApplicationContext(), pickContactIntent)) {
+            startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+        } else {
+            Utils.showPickContactNotInstalledDialog(getActivity());
+        }
     }
 
     @Override

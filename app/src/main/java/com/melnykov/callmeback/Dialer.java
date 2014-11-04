@@ -42,7 +42,7 @@ public class Dialer {
                 }
                 break;
             case KAZAKHSTAN:
-                if(phoneNumber.length() >= 10) {
+                if (phoneNumber.length() >= 10) {
                     phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
                 }
         }
@@ -57,7 +57,7 @@ public class Dialer {
         switch (operator.getCountry()) {
             case UKRAINE:
                 // Phone numbers for Ukraine must be in the format XXXXXXXXXX
-                isValid =  (phoneNumber.length() == 12 && phoneNumber.startsWith("38"))
+                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("38"))
                     || (phoneNumber.length() == 10);
                 break;
             case BELARUS:
@@ -78,7 +78,7 @@ public class Dialer {
                 break;
             case KAZAKHSTAN:
                 // Phone numbers for Kazakhstan must be in format 7XXXXXXXXX
-                if(phoneNumber.length() >= 10) {
+                if (phoneNumber.length() >= 10) {
                     phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
                     isValid = phoneNumber.startsWith("7");
                 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#eaeaea"
-    android:minHeight="48dp"
-    android:orientation="horizontal"
-    android:paddingLeft="@dimen/activity_horizontal_margin">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#eaeaea"
+              android:minHeight="48dp"
+              android:orientation="horizontal"
+              android:paddingLeft="@dimen/activity_horizontal_margin">
 
     <TextView
         android:layout_width="0dp"
@@ -15,7 +15,7 @@
         android:layout_weight="1"
         android:text="@string/recent_contacts"
         android:textColor="@color/font_subhead"
-        android:textSize="@dimen/font_subhead" />
+        android:textSize="@dimen/font_subhead"/>
 
     <Button
         android:id="@+id/all_contacts"
@@ -26,6 +26,6 @@
         android:paddingRight="16dp"
         android:text="@string/all_contacts"
         android:textColor="@color/font_title"
-        android:textSize="@dimen/font_subhead" />
+        android:textSize="@dimen/font_subhead"/>
 
 </LinearLayout>

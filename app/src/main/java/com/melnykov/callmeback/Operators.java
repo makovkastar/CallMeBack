@@ -21,7 +21,7 @@ public class Operators {
         new Operator(101, R.string.beeline_ru, R.drawable.beeline, Country.RUSSIA, "*144*%s#"),
         new Operator(102, R.string.megafon, R.drawable.megafon, Country.RUSSIA, "*144*8%s#"),
         new Operator(103, R.string.rostelecom, R.drawable.rostelecom, Country.RUSSIA, "*123*8%s#"),
-        new Operator(104, R.string.tele2_ru, R.drawable.tele2, Country.RUSSIA,  "*118*8%s#"),
+        new Operator(104, R.string.tele2_ru, R.drawable.tele2, Country.RUSSIA, "*118*8%s#"),
         new Operator(105, R.string.motiv, R.drawable.motiv, Country.RUSSIA, "*105*8%s#"),
         new Operator(106, R.string.smarts, R.drawable.smarts, Country.RUSSIA, "*134*%s#"),
         new Operator(107, R.string.nss, R.drawable.nss, Country.RUSSIA, "*135*%s#"),
@@ -32,7 +32,7 @@ public class Operators {
         // Belarus
         new Operator(200, R.string.velcom, R.drawable.velcom, Country.BELARUS, "*131*%s#"),
         new Operator(201, R.string.mts_by, R.drawable.mts, Country.BELARUS, "*120*%s#"),
-        new Operator(202, R.string.life_by, R.drawable.life, Country.BELARUS,  "*120*2*%s#"),
+        new Operator(202, R.string.life_by, R.drawable.life, Country.BELARUS, "*120*2*%s#"),
         // Moldova
         new Operator(300, R.string.idc, R.drawable.idc, Country.MOLDOVA, "887#%s"),
         new Operator(301, R.string.mold_cell, R.drawable.mold_cell, Country.MOLDOVA, "*111*7%s#"),

@@ -8,12 +8,14 @@
     android:clickable="true"
     android:gravity="center_vertical">
 
-    <TextView
+    <CheckBox
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/listitem_height"
         tools:text="Item"
         android:textSize="@dimen/listitem_textsize"
+        android:minHeight="@dimen/listitem_height"
+        android:clickable="false"
+        android:background="@null"
         android:gravity="left|center_vertical"
         android:layout_marginLeft="@dimen/button_frame_margin"
         android:layout_marginRight="@dimen/button_frame_margin" />

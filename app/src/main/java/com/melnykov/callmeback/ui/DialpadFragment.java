@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -13,8 +12,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
+import android.text.Html;
+import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
@@ -41,7 +41,6 @@ public class DialpadFragment extends Fragment {
     private Operator mOperator;
     private EditText mPhoneNumber;
     private ImageView mHeader;
-    private Toast mErrorToast;
     private boolean mIsAnimationRunning = false;
     private ValueAnimator mColorAnimation;
 
@@ -121,11 +120,13 @@ public class DialpadFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String phoneNumber = mPhoneNumber.getText().toString();
+                if (TextUtils.isEmpty(phoneNumber)) return;
+
                 if (Dialer.isNumberValid(mOperator, phoneNumber)) {
                     dialSelectedNumber(phoneNumber);
                 } else {
                     animateHeader(getResources().getColor(R.color.invalid), 3, false);
-                    showPhoneNumberError();
+                    showPhoneNumberError(phoneNumber);
                 }
             }
         });
@@ -156,16 +157,27 @@ public class DialpadFragment extends Fragment {
         String encodedNumber = Uri.encode(Dialer.getRecallNumber(mOperator, phoneNumber));
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + encodedNumber));
-        startActivity(intent);
+        if (Utils.isIntentResolvable(getActivity().getApplicationContext(), intent)) {
+            startActivity(intent);
+        } else {
+            Utils.showDialerNotInstalledDialog(getActivity());
+        }
     }
 
-    private void showPhoneNumberError() {
-        if (mErrorToast == null) {
-            mErrorToast = Toast.makeText(getActivity(), getString(R.string.toast_invalid_number),
-                Toast.LENGTH_SHORT);
-            mErrorToast.setGravity(Gravity.CENTER, 0, 0);
-        }
-        mErrorToast.show();
+    private void showPhoneNumberError(String phoneNumber) {
+        new MaterialDialog.Builder(getActivity())
+            .title(R.string.title_invalid_number)
+            .content(Html.fromHtml(getString(R.string.msg_invalid_number, phoneNumber)))
+            .positiveText(R.string.close)
+            .positiveColorRes(R.color.primary)
+            .callback(new MaterialDialog.SimpleCallback() {
+                @Override
+                public void onPositive(MaterialDialog dialog) {
+                    // NOP
+                }
+            })
+            .build()
+            .show();
     }
 
     private void animateHeader(final int colorTo, final int repeatCount, boolean cancelPrevious) {

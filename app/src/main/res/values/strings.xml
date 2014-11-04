@@ -61,10 +61,12 @@
     ]]></string>
     <string name="about_title" translatable="false">%1$s v%2$s</string>
     <string name="about_message"><![CDATA[
-        «Перезвони мне» - это бесплатное приложение с открытым <a href="https://github.com/makovkastar/CallMeBack">исходным кодом</a>.
+        «Перезвони мне» — это бесплатное приложение с открытым <a href="https://github.com/makovkastar/CallMeBack"> исходным кодом</a>.
         <br/>
-        Разработчик - <a href="https://plus.google.com/+OleksandrMelnykov">Александр Мельников</a>.
-        Все права защищены.
+        Пожелания и предложения отправляйте на <a href="mailto:makovkastar@gmail.com?subject=«Перезвони мне»">makovkastar@gmail.com</a>.
+        <br/>
+        <br/>
+        © <a href="https://plus.google.com/+OleksandrMelnykov">Александр Мельников</a>, 2014.
     ]]></string>
     <string name="phone_number_hint"><![CDATA[
         Наберите номер получателя и нажмите <b>«Готово»</b>.
@@ -72,6 +74,12 @@
     <string name="rate">Оценить в Play Store</string>
     <string name="close">Закрыть</string>
 
-    <!-- Toasts -->
-    <string name="toast_invalid_number">Проверьте правильность номера</string>
+    <!-- Dialogs -->
+    <string name="msg_invalid_number"><![CDATA[
+        Отправка запрос на номер <b>%1$s</b> невозможна. Проверьте правильность набора номера.
+    ]]></string>
+    <string name="title_invalid_number">Неверный номер</string>
+    <string name="title_error">Ошибка</string>
+    <string name="msg_dialer_not_installed">Приложение для звонков не установлено</string>
+    <string name="msg_pick_contact_not_installed">Приложение для выбора контактов не установлено</string>
 </resources>
