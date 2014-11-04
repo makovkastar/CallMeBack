@@ -68,15 +68,12 @@
         <br/>
         © <a href="https://plus.google.com/+OleksandrMelnykov">Александр Мельников</a>, 2014.
     ]]></string>
-    <string name="phone_number_hint"><![CDATA[
-        Наберите номер получателя и нажмите <b>«Готово»</b>.
-    ]]></string>
     <string name="rate">Оценить в Play Store</string>
     <string name="close">Закрыть</string>
 
     <!-- Dialogs -->
     <string name="msg_invalid_number"><![CDATA[
-        Отправка запрос на номер <b>%1$s</b> невозможна. Проверьте правильность набора номера.
+        Отправка запроса на номер <b>%1$s</b> невозможна. Проверьте правильность набора номера.
     ]]></string>
     <string name="title_invalid_number">Неверный номер</string>
     <string name="title_error">Ошибка</string>
