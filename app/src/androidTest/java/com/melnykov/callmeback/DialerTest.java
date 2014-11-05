@@ -135,21 +135,25 @@ public class DialerTest extends TestCase {
     public void testKCell() {
         Operator operator = Operators.getById(400);
         testKzNumbersValid(operator);
+        testKzRecallNumber(operator, "*130*87016051515#");
     }
 
     public void testActivKz() {
         Operator operator = Operators.getById(401);
         testKzNumbersValid(operator);
+        testKzRecallNumber(operator, "*130*87016051515#");
     }
 
     public void testBeelineKz() {
         Operator operator = Operators.getById(402);
         testKzNumbersValid(operator);
+        testKzRecallNumber(operator, "*144*87016051515#");
     }
 
     public void testTele2Kz() {
         Operator operator = Operators.getById(403);
         testKzNumbersValid(operator);
+        testKzRecallNumber(operator, "*144*87016051515#");
     }
 
     private void testUaNumbersValid(Operator operator) {
@@ -222,9 +226,18 @@ public class DialerTest extends TestCase {
     private void testByRecallNumber(Operator operator, String expected) {
         assertEquals(Dialer.getRecallNumber(operator, "+375256051515"), expected);
         assertEquals(Dialer.getRecallNumber(operator, "+375 25 605 1515"), expected);
-        assertEquals(Dialer.getRecallNumber(operator, "375 25 605 1515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "375256051515"), expected);
         assertEquals(Dialer.getRecallNumber(operator, "375(25)6051515"), expected);
         assertEquals(Dialer.getRecallNumber(operator, "256051515"), expected);
         assertEquals(Dialer.getRecallNumber(operator, "25 605 15 15"), expected);
+    }
+
+    private void testKzRecallNumber(Operator operator, String expected) {
+        assertEquals(Dialer.getRecallNumber(operator, "+77016051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "+7 701 605 15 15"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "77016051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "7(701)6051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "7016051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "701 605 15 15"), expected);
     }
 }
