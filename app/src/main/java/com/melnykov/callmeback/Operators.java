@@ -28,7 +28,7 @@ public class Operators {
         new Operator(108, R.string.bwc, R.drawable.bwc, Country.RUSSIA, "*141*%s#"),
         new Operator(109, R.string.akoc, R.drawable.akoc, Country.RUSSIA, "*123*%s#"),
         new Operator(110, R.string.etk, R.drawable.etk, Country.RUSSIA, "*102*50*%s#"),
-        new Operator(111, R.string.justtotalk, R.drawable.justtotalk, Country.RUSSIA, "*168*%s#"),
+        new Operator(111, R.string.justtotalk, R.drawable.justtotalk, Country.RUSSIA, "*168*8%s#"),
         // Belarus
         new Operator(200, R.string.velcom, R.drawable.velcom, Country.BELARUS, "*131*%s#"),
         new Operator(201, R.string.mts_by, R.drawable.mts, Country.BELARUS, "*120*%s#"),

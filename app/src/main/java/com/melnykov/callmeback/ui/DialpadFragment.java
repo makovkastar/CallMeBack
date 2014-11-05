@@ -89,8 +89,6 @@ public class DialpadFragment extends Fragment {
                 String phoneNumber = editable.toString();
                 if (Dialer.isNumberValid(mOperator, phoneNumber)) {
                     animateHeader(getResources().getColor(R.color.valid), 0, true);
-                } else if (Dialer.isNumberEntered(phoneNumber)) {
-                    animateHeader(getResources().getColor(R.color.invalid), 0, true);
                 } else {
                     animateHeader(getResources().getColor(R.color.accent), 0, false);
                 }

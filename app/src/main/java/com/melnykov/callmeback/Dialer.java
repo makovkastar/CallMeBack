@@ -58,41 +58,38 @@ public class Dialer {
 
         switch (operator.getCountry()) {
             case UKRAINE:
-                // [38]0XXXXXXXXX
-                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("380"))
-                    || (phoneNumber.length() == 10 && phoneNumber.startsWith("0"));
-                break;
+                // [38]XXXXXXXXXX
+                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("38"))
+                    || (phoneNumber.length() == 10);
+            break;
             case BELARUS:
-                // [375]XXXXXXXXX
-                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("375"))
+                // [810][375]XXXXXXXXX
+                isValid = (phoneNumber.length() == 15 && phoneNumber.startsWith("810375"))
+                    || (phoneNumber.length() == 12 && phoneNumber.startsWith("375"))
                     || (phoneNumber.length() == 9);
                 break;
             case RUSSIA:
-                // [7]9XXXXXXXXX
-                isValid = (phoneNumber.length() == 11 && phoneNumber.startsWith("79"))
-                    || (phoneNumber.length() == 10 && phoneNumber.startsWith("9"));
+                // 9XXXXXXXXX
+                if (phoneNumber.length() >= 10) {
+                    phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
+                    isValid = phoneNumber.startsWith("9");
+                }
                 break;
             case MOLDOVA:
-                // [373][0]XXXXXXXX
-                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("373"))
-                    || (phoneNumber.length() == 9 && phoneNumber.startsWith("0"))
-                    || (phoneNumber.length() == 8);
+                isValid = true;
                 break;
             case KAZAKHSTAN:
-                // [7]7XXXXXXXXXX
-                isValid = (phoneNumber.length() == 11 && phoneNumber.startsWith("77"))
-                    || (phoneNumber.length() == 10 && phoneNumber.startsWith("7"));
+                // 7XXXXXXXXXX
+                if (phoneNumber.length() >= 10) {
+                    phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
+                    isValid = phoneNumber.startsWith("7");
+                }
                 break;
         }
 
         isValid &= phoneNumber.matches("[0-9]+");
 
         return isValid;
-    }
-
-    public static boolean isNumberEntered(String phoneNumber) {
-        phoneNumber = stripNumber(phoneNumber);
-        return phoneNumber.length() > 9;
     }
 
     private static String stripNumber(String phoneNumber) {

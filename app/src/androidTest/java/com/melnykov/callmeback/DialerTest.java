@@ -45,87 +45,91 @@ public class DialerTest extends TestCase {
     public void testMtsRu() {
         Operator operator = Operators.getById(100);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*110*89806051515#");
     }
 
     public void testBeelineRu() {
         Operator operator = Operators.getById(101);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*144*9806051515#");
     }
 
     public void testMegafon() {
         Operator operator = Operators.getById(102);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*144*89806051515#");
     }
 
     public void testRostelecom() {
         Operator operator = Operators.getById(103);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*123*89806051515#");
     }
 
     public void testTele2() {
         Operator operator = Operators.getById(104);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*118*89806051515#");
     }
 
     public void testMotiv() {
         Operator operator = Operators.getById(105);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*105*89806051515#");
     }
 
     public void testSmarts() {
         Operator operator = Operators.getById(106);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*134*9806051515#");
     }
 
     public void testHcc() {
         Operator operator = Operators.getById(107);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*135*9806051515#");
     }
 
     public void testBwc() {
         Operator operator = Operators.getById(108);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*141*9806051515#");
     }
 
     public void testAkoc() {
         Operator operator = Operators.getById(109);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*123*9806051515#");
     }
 
     public void testEtk() {
         Operator operator = Operators.getById(110);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*102*50*9806051515#");
     }
 
     public void testJustToTalk() {
         Operator operator = Operators.getById(111);
         testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*168*89806051515#");
     }
-
 
     public void testVelcom() {
         Operator operator = Operators.getById(200);
         testByNumbersValid(operator);
+        testByRecallNumber(operator, "*131*256051515#");
     }
 
     public void testMtsBy() {
         Operator operator = Operators.getById(201);
         testByNumbersValid(operator);
+        testByRecallNumber(operator, "*120*375256051515#");
     }
 
     public void testLifeBy() {
         Operator operator = Operators.getById(202);
         testByNumbersValid(operator);
-    }
-
-    public void testIdc() {
-        Operator operator = Operators.getById(300);
-        testMdNumbersValid(operator);
-    }
-
-    public void testMoldCell() {
-        Operator operator = Operators.getById(301);
-        testMdNumbersValid(operator);
+        testByRecallNumber(operator, "*120*2*375256051515#");
     }
 
     public void testKCell() {
@@ -160,15 +164,6 @@ public class DialerTest extends TestCase {
         assertFalse(Dialer.isNumberValid(operator, "480666051515"));
     }
 
-    private void testUaRecallNumber(Operator operator, String expected) {
-        assertEquals(Dialer.getRecallNumber(operator, "+380666051515"), expected);
-        assertEquals(Dialer.getRecallNumber(operator, "+380 66 605 15 15"), expected);
-        assertEquals(Dialer.getRecallNumber(operator, "380666051515"), expected);
-        assertEquals(Dialer.getRecallNumber(operator, "38(066)605-15-15"), expected);
-        assertEquals(Dialer.getRecallNumber(operator, "0666051515"), expected);
-        assertEquals(Dialer.getRecallNumber(operator, "066 605 15 15"), expected);
-    }
-
     private void testRuNumbersValid(Operator operator) {
         assertTrue(Dialer.isNumberValid(operator, "+79806051515"));
         assertTrue(Dialer.isNumberValid(operator, "+7 980 605 15 15"));
@@ -178,7 +173,6 @@ public class DialerTest extends TestCase {
         assertTrue(Dialer.isNumberValid(operator, "980 605 15 15"));
 
         assertFalse(Dialer.isNumberValid(operator, "6051515"));
-        assertFalse(Dialer.isNumberValid(operator, "+89806051515"));
         assertFalse(Dialer.isNumberValid(operator, "78806051515"));
     }
 
@@ -195,20 +189,6 @@ public class DialerTest extends TestCase {
         assertFalse(Dialer.isNumberValid(operator, "4375256051515"));
     }
 
-    private void testMdNumbersValid(Operator operator) {
-        assertTrue(Dialer.isNumberValid(operator, "+373060605151"));
-        assertTrue(Dialer.isNumberValid(operator, "+373 060 605151"));
-        assertTrue(Dialer.isNumberValid(operator, "373060605151"));
-        assertTrue(Dialer.isNumberValid(operator, "373(060)605151"));
-        assertTrue(Dialer.isNumberValid(operator, "060605151"));
-        assertTrue(Dialer.isNumberValid(operator, "0606 05 151"));
-        assertTrue(Dialer.isNumberValid(operator, "606 05151"));
-
-        assertFalse(Dialer.isNumberValid(operator, "605151"));
-        assertFalse(Dialer.isNumberValid(operator, "+473060605151"));
-        assertFalse(Dialer.isNumberValid(operator, "160605151"));
-    }
-
     private void testKzNumbersValid(Operator operator) {
         assertTrue(Dialer.isNumberValid(operator, "+77016051515"));
         assertTrue(Dialer.isNumberValid(operator, "+7 701 605 15 15"));
@@ -218,7 +198,33 @@ public class DialerTest extends TestCase {
         assertTrue(Dialer.isNumberValid(operator, "701 605 15 15"));
 
         assertFalse(Dialer.isNumberValid(operator, "6051515"));
-        assertFalse(Dialer.isNumberValid(operator, "+87016051515"));
         assertFalse(Dialer.isNumberValid(operator, "88806051515"));
+    }
+
+    private void testUaRecallNumber(Operator operator, String expected) {
+        assertEquals(Dialer.getRecallNumber(operator, "+380666051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "+380 66 605 15 15"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "380666051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "38(066)605-15-15"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "0666051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "066 605 15 15"), expected);
+    }
+
+    private void testRuRecallNumber(Operator operator, String expected) {
+        assertEquals(Dialer.getRecallNumber(operator, "+79806051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "+7 980 605 15 15"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "79806051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "7(980)6051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "9806051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "980 605 15 15"), expected);
+    }
+
+    private void testByRecallNumber(Operator operator, String expected) {
+        assertEquals(Dialer.getRecallNumber(operator, "+375256051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "+375 25 605 1515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "375 25 605 1515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "375(25)6051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "256051515"), expected);
+        assertEquals(Dialer.getRecallNumber(operator, "25 605 15 15"), expected);
     }
 }
