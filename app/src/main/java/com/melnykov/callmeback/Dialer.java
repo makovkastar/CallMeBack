@@ -61,7 +61,7 @@ public class Dialer {
                 // [38]XXXXXXXXXX
                 isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("38"))
                     || (phoneNumber.length() == 10);
-            break;
+                break;
             case BELARUS:
                 // [810][375]XXXXXXXXX
                 isValid = (phoneNumber.length() == 15 && phoneNumber.startsWith("810375"))

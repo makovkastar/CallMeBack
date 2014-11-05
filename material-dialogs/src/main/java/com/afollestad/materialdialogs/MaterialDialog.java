@@ -192,7 +192,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
      */
     private void checkIfStackingNeeded() {
         if (((negativeButton == null || negativeButton.getVisibility() == View.GONE) &&
-                (neutralButton == null || neutralButton.getVisibility() == View.GONE))) {
+            (neutralButton == null || neutralButton.getVisibility() == View.GONE))) {
             // Stacking isn't necessary if you only have one button
             return;
         }
@@ -259,7 +259,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
         view.findViewById(R.id.buttonStackedFrame).setVisibility(isStacked ? View.VISIBLE : View.GONE);
 
         positiveButton = (TextView) view.findViewById(
-                isStacked ? R.id.buttonStackedPositive : R.id.buttonDefaultPositive);
+            isStacked ? R.id.buttonStackedPositive : R.id.buttonDefaultPositive);
         positiveButton.setTypeface(mediumFont);
         if (this.positiveText == null)
             this.positiveText = mContext.getString(R.string.accept);
@@ -271,7 +271,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
         positiveButton.setOnClickListener(this);
 
         neutralButton = (TextView) view.findViewById(
-                isStacked ? R.id.buttonStackedNeutral : R.id.buttonDefaultNeutral);
+            isStacked ? R.id.buttonStackedNeutral : R.id.buttonDefaultNeutral);
         neutralButton.setTypeface(mediumFont);
         if (this.neutralText != null) {
             neutralButton.setVisibility(View.VISIBLE);
@@ -285,7 +285,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
         }
 
         negativeButton = (TextView) view.findViewById(
-                isStacked ? R.id.buttonStackedNegative : R.id.buttonDefaultNegative);
+            isStacked ? R.id.buttonStackedNegative : R.id.buttonDefaultNegative);
         negativeButton.setTypeface(mediumFont);
         if (this.negativeText != null) {
             negativeButton.setVisibility(View.VISIBLE);
@@ -326,8 +326,8 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
                     }
                 }
                 listCallbackMulti.onSelection(this,
-                        selectedIndices.toArray(new Integer[selectedIndices.size()]),
-                        selectedTitles.toArray(new String[selectedTitles.size()]));
+                    selectedIndices.toArray(new Integer[selectedIndices.size()]),
+                    selectedTitles.toArray(new String[selectedTitles.size()]));
             } else if (callback != null) {
                 dismiss();
                 callback.onPositive(this);
@@ -359,6 +359,107 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
         }
     }
 
+    private ColorStateList getActionTextStateList(int newPrimaryColor) {
+        final int buttonColor = Utils.resolveColor(getContext(), R.attr.button_color);
+        if (newPrimaryColor == 0) newPrimaryColor = buttonColor;
+        int[][] states = new int[][]{
+            new int[]{-android.R.attr.state_enabled}, // disabled
+            new int[]{} // enabled
+        };
+        int[] colors = new int[]{
+            Utils.adjustAlpha(buttonColor, 0.6f),
+            newPrimaryColor
+        };
+        return new ColorStateList(states, colors);
+    }
+
+    /**
+     * Retrieves the view of an action button, allowing you to modify properties such as whether or not it's enabled.
+     */
+    public final View getActionButton(DialogAction which) {
+        if (view == null) return null;
+        if (isStacked) {
+            switch (which) {
+                default:
+                    return view.findViewById(R.id.buttonStackedPositive);
+                case NEUTRAL:
+                    return view.findViewById(R.id.buttonStackedNeutral);
+                case NEGATIVE:
+                    return view.findViewById(R.id.buttonStackedNegative);
+            }
+        } else {
+            switch (which) {
+                default:
+                    return view.findViewById(R.id.buttonDefaultPositive);
+                case NEUTRAL:
+                    return view.findViewById(R.id.buttonDefaultNeutral);
+                case NEGATIVE:
+                    return view.findViewById(R.id.buttonDefaultNegative);
+            }
+        }
+    }
+
+    /**
+     * Updates an action button's title, causing invalidation to check if the action buttons should be stacked.
+     *
+     * @param which The action button to update.
+     * @param title The new title of the action button.
+     */
+    public final void setActionButton(DialogAction which, CharSequence title) {
+        switch (which) {
+            default:
+                this.positiveText = title;
+                break;
+            case NEUTRAL:
+                this.neutralText = title;
+                break;
+            case NEGATIVE:
+                this.negativeText = title;
+                break;
+        }
+        invalidateActions();
+    }
+
+    /**
+     * Updates an action button's title, causing invalidation to check if the action buttons should be stacked.
+     *
+     * @param which    The action button to update.
+     * @param titleRes The string resource of the new title of the action button.
+     */
+    public final void setActionButton(DialogAction which, @StringRes int titleRes) {
+        setActionButton(which, mContext.getString(titleRes));
+    }
+
+    /**
+     * Retrieves the custom view that was inflated or set to the MaterialDialog during building.
+     */
+    public final View getCustomView() {
+        return customView;
+    }
+
+    public static interface ListCallback {
+        void onSelection(MaterialDialog dialog, int which, String text);
+    }
+
+
+    public static interface ListCallbackMulti {
+        void onSelection(MaterialDialog dialog, Integer[] which, String[] text);
+    }
+
+    public static interface SimpleCallback {
+        void onPositive(MaterialDialog dialog);
+    }
+
+    public static interface Callback extends SimpleCallback {
+        void onPositive(MaterialDialog dialog);
+
+        void onNegative(MaterialDialog dialog);
+    }
+
+    public static interface FullCallback extends Callback {
+        void onNeutral(MaterialDialog dialog);
+    }
+
     /**
      * The class used to construct a MaterialDialog.
      */
@@ -379,10 +480,10 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
         protected SimpleCallback callback;
         protected ListCallback listCallback;
         protected ListCallback listCallbackSingle;
-        private ListCallbackMulti listCallbackMulti;
         protected Theme theme = Theme.LIGHT;
         protected boolean cancelable = true;
         protected float contentLineSpacingMultiplier = 1.0f;
+        private ListCallbackMulti listCallbackMulti;
 
         public Builder(@NonNull Activity context) {
             this.context = context;
@@ -550,107 +651,5 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener {
         public MaterialDialog build() {
             return new MaterialDialog(this);
         }
-    }
-
-
-    private ColorStateList getActionTextStateList(int newPrimaryColor) {
-        final int buttonColor = Utils.resolveColor(getContext(), R.attr.button_color);
-        if (newPrimaryColor == 0) newPrimaryColor = buttonColor;
-        int[][] states = new int[][]{
-                new int[]{-android.R.attr.state_enabled}, // disabled
-                new int[]{} // enabled
-        };
-        int[] colors = new int[]{
-                Utils.adjustAlpha(buttonColor, 0.6f),
-                newPrimaryColor
-        };
-        return new ColorStateList(states, colors);
-    }
-
-    /**
-     * Retrieves the view of an action button, allowing you to modify properties such as whether or not it's enabled.
-     */
-    public final View getActionButton(DialogAction which) {
-        if (view == null) return null;
-        if (isStacked) {
-            switch (which) {
-                default:
-                    return view.findViewById(R.id.buttonStackedPositive);
-                case NEUTRAL:
-                    return view.findViewById(R.id.buttonStackedNeutral);
-                case NEGATIVE:
-                    return view.findViewById(R.id.buttonStackedNegative);
-            }
-        } else {
-            switch (which) {
-                default:
-                    return view.findViewById(R.id.buttonDefaultPositive);
-                case NEUTRAL:
-                    return view.findViewById(R.id.buttonDefaultNeutral);
-                case NEGATIVE:
-                    return view.findViewById(R.id.buttonDefaultNegative);
-            }
-        }
-    }
-
-    /**
-     * Updates an action button's title, causing invalidation to check if the action buttons should be stacked.
-     *
-     * @param which The action button to update.
-     * @param title The new title of the action button.
-     */
-    public final void setActionButton(DialogAction which, CharSequence title) {
-        switch (which) {
-            default:
-                this.positiveText = title;
-                break;
-            case NEUTRAL:
-                this.neutralText = title;
-                break;
-            case NEGATIVE:
-                this.negativeText = title;
-                break;
-        }
-        invalidateActions();
-    }
-
-    /**
-     * Updates an action button's title, causing invalidation to check if the action buttons should be stacked.
-     *
-     * @param which    The action button to update.
-     * @param titleRes The string resource of the new title of the action button.
-     */
-    public final void setActionButton(DialogAction which, @StringRes int titleRes) {
-        setActionButton(which, mContext.getString(titleRes));
-    }
-
-    /**
-     * Retrieves the custom view that was inflated or set to the MaterialDialog during building.
-     */
-    public final View getCustomView() {
-        return customView;
-    }
-
-
-    public static interface ListCallback {
-        void onSelection(MaterialDialog dialog, int which, String text);
-    }
-
-    public static interface ListCallbackMulti {
-        void onSelection(MaterialDialog dialog, Integer[] which, String[] text);
-    }
-
-    public static interface SimpleCallback {
-        void onPositive(MaterialDialog dialog);
-    }
-
-    public static interface Callback extends SimpleCallback {
-        void onPositive(MaterialDialog dialog);
-
-        void onNegative(MaterialDialog dialog);
-    }
-
-    public static interface FullCallback extends Callback {
-        void onNeutral(MaterialDialog dialog);
     }
 }

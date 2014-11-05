@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/mainFrame"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dialog_frame_margin"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/button_frame_margin"
         android:paddingLeft="@dimen/dialog_frame_margin"
-        android:paddingRight="@dimen/dialog_frame_margin">
+        android:paddingRight="@dimen/dialog_frame_margin"
+        android:paddingTop="@dimen/dialog_frame_margin">
 
         <TextView
             android:id="@+id/title"
@@ -21,14 +21,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/button_frame_margin"
             android:textSize="@dimen/title_textsize"
-            tools:text="Title" />
+            tools:text="Title"/>
 
         <TextView
             android:id="@+id/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/content_textsize"
-            tools:text="Content" />
+            tools:text="Content"/>
 
     </LinearLayout>
 
@@ -40,22 +40,22 @@
 
         <LinearLayout
             android:id="@+id/customViewFrame"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dialog_frame_margin"
             android:paddingLeft="@dimen/dialog_frame_margin"
             android:paddingRight="@dimen/dialog_frame_margin"
-            android:paddingTop="@dimen/dialog_frame_margin"
-            android:paddingBottom="@dimen/dialog_frame_margin">
+            android:paddingTop="@dimen/dialog_frame_margin">
 
             <TextView
                 android:id="@+id/titleCustomView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/button_frame_margin"
+                android:paddingBottom="@dimen/title_margin_customview"
                 android:textSize="@dimen/title_textsize_customview"
-                tools:text="Title"
-                android:paddingBottom="@dimen/title_margin_customview" />
+                tools:text="Title"/>
 
         </LinearLayout>
 
@@ -65,15 +65,15 @@
         android:id="@+id/customViewDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:visibility="gone"
-        android:paddingTop="@dimen/button_frame_margin" />
+        android:paddingTop="@dimen/button_frame_margin"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/listFrame"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/buttonDefaultFrame"
@@ -86,45 +86,45 @@
             android:id="@+id/buttonDefaultNeutral"
             style="@style/ActionButton"
             android:layout_alignParentLeft="true"
-            android:gravity="left|center_vertical" />
+            android:gravity="left|center_vertical"/>
 
         <com.afollestad.materialdialogs.MaterialButton
             android:id="@+id/buttonDefaultNegative"
             style="@style/ActionButton"
             android:layout_toLeftOf="@+id/buttonDefaultPositive"
-            android:gravity="right|center_vertical" />
+            android:gravity="right|center_vertical"/>
 
         <com.afollestad.materialdialogs.MaterialButton
             android:id="@+id/buttonDefaultPositive"
             style="@style/ActionButton"
             android:layout_alignParentRight="true"
-            android:gravity="right|center_vertical" />
+            android:gravity="right|center_vertical"/>
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/buttonStackedFrame"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/button_frame_margin"
-        android:paddingRight="@dimen/button_frame_margin"
-        android:gravity="right">
+        android:paddingRight="@dimen/button_frame_margin">
 
         <com.afollestad.materialdialogs.MaterialButton
             android:id="@+id/buttonStackedPositive"
             style="@style/ActionButton"
-            android:gravity="center|right" />
+            android:gravity="center|right"/>
 
         <com.afollestad.materialdialogs.MaterialButton
             android:id="@+id/buttonStackedNegative"
             style="@style/ActionButton"
-            android:gravity="center|right" />
+            android:gravity="center|right"/>
 
         <com.afollestad.materialdialogs.MaterialButton
             android:id="@+id/buttonStackedNeutral"
             style="@style/ActionButton"
-            android:gravity="center|right" />
+            android:gravity="center|right"/>
 
     </LinearLayout>
 
