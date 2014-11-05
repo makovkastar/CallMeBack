@@ -32,17 +32,19 @@ public class Dialer {
                 }
                 break;
             case RUSSIA:
-                if (phoneNumber.length() >= 10) {
+                // Phone numbers for Russia must be in format 9XXXXXXXXX
+                if (phoneNumber.length() > 10) {
                     phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
                 }
                 break;
             case MOLDOVA:
-                if (operator.getId() == 201 && phoneNumber.length() >= 7) {
-                    phoneNumber = phoneNumber.substring(phoneNumber.length() - 7);
+                if (operator.getId() == 201 && phoneNumber.length() > 8) {
+                    phoneNumber = phoneNumber.substring(phoneNumber.length() - 8);
                 }
                 break;
             case KAZAKHSTAN:
-                if (phoneNumber.length() >= 10) {
+                // Phone numbers for Russia must be in format 7XXXXXXXXX
+                if (phoneNumber.length() > 10) {
                     phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
                 }
         }
@@ -56,32 +58,30 @@ public class Dialer {
 
         switch (operator.getCountry()) {
             case UKRAINE:
-                // Phone numbers for Ukraine must be in the format XXXXXXXXXX
-                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("38"))
-                    || (phoneNumber.length() == 10);
+                // [38]0XXXXXXXXX
+                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("380"))
+                    || (phoneNumber.length() == 10 && phoneNumber.startsWith("0"));
                 break;
             case BELARUS:
-                // Phone numbers for Belarus must be in format 375XXXXXXXXX
-                isValid = (phoneNumber.length() == 15 && phoneNumber.startsWith("810375"))
-                    || (phoneNumber.length() == 12 && phoneNumber.startsWith("375"))
+                // [375]XXXXXXXXX
+                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("375"))
                     || (phoneNumber.length() == 9);
                 break;
             case RUSSIA:
-                // Phone numbers for Russia must be in format 9XXXXXXXXX
-                if (phoneNumber.length() >= 10) {
-                    phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
-                    isValid = phoneNumber.startsWith("9");
-                }
+                // [7]9XXXXXXXXX
+                isValid = (phoneNumber.length() == 11 && phoneNumber.startsWith("79"))
+                    || (phoneNumber.length() == 10 && phoneNumber.startsWith("9"));
                 break;
             case MOLDOVA:
-                isValid = true;
+                // [373][0]XXXXXXXX
+                isValid = (phoneNumber.length() == 12 && phoneNumber.startsWith("373"))
+                    || (phoneNumber.length() == 9 && phoneNumber.startsWith("0"))
+                    || (phoneNumber.length() == 8);
                 break;
             case KAZAKHSTAN:
-                // Phone numbers for Kazakhstan must be in format 7XXXXXXXXX
-                if (phoneNumber.length() >= 10) {
-                    phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
-                    isValid = phoneNumber.startsWith("7");
-                }
+                // [7]7XXXXXXXXXX
+                isValid = (phoneNumber.length() == 11 && phoneNumber.startsWith("77"))
+                    || (phoneNumber.length() == 10 && phoneNumber.startsWith("7"));
                 break;
         }
 
