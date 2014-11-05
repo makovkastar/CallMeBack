@@ -97,6 +97,9 @@ public class Dialer {
 
     private static String stripNumber(String phoneNumber) {
         return phoneNumber.replace("-", "")
+            .replace("+", "")
+            .replace("(", "")
+            .replace(")", "")
             .replace(" ", "");
     }
 }

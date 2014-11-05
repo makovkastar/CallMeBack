@@ -15,7 +15,7 @@ public class Operators {
         new Operator(2, R.string.beeline_ua, R.drawable.beeline, Country.UKRAINE, "*130*38%s#"),
         new Operator(3, R.string.djuice, R.drawable.djuice, Country.UKRAINE, "*130*38%s#"),
         new Operator(4, R.string.life_ua, R.drawable.life, Country.UKRAINE, "*123*3*38%s#"),
-        new Operator(5, R.string.utel, R.drawable.utel, Country.UKRAINE, "*110*02*%s#"),
+        new Operator(5, R.string.utel, R.drawable.utel, Country.UKRAINE, "*110*%s#"),
         // Russia
         new Operator(100, R.string.mts_ru, R.drawable.mts, Country.RUSSIA, "*110*8%s#"),
         new Operator(101, R.string.beeline_ru, R.drawable.beeline, Country.RUSSIA, "*144*%s#"),
