@@ -72,4 +72,11 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_dialpad_white_48dp"/>
 
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/bottom_shadow"
+        android:layout_below="@id/header"/>
+
 </RelativeLayout>

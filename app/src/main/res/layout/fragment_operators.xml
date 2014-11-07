@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:drawSelectorOnTop="false"/>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider"/>
-
     <Button
         android:id="@+id/next"
+        android:layout_alignParentBottom="true"
         style="?android:borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:text="ДАЛЕЕ"
+        android:text="@string/button_next"
         android:textColor="@color/font_title"
         android:textSize="@dimen/font_title"/>
 
-</LinearLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_above="@id/next"/>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_above="@id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="false"/>
+
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/bottom_shadow"
+        android:layout_alignTop="@android:id/list"/>
+
+</RelativeLayout>

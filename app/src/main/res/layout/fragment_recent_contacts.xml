@@ -18,6 +18,13 @@
         android:layout_below="@id/dial"
         android:drawSelectorOnTop="false"/>
 
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/bottom_shadow"
+        android:layout_below="@id/dial"/>
+
     <TextView
         android:id="@android:id/empty"
         android:layout_width="match_parent"

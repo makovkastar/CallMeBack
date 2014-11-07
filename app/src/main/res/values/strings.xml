@@ -9,6 +9,7 @@
     <string name="action_recent_contacts">Недавние контакты</string>
 
     <string name="select_operator">Выбор оператора</string>
+    <string name="button_next">ДАЛЕЕ</string>
     <string name="manual_dial">Набор номера</string>
     <string name="no_recent_contacts"><![CDATA[
         <b>Нет последних контактов.</b>
