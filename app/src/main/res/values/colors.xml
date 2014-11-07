@@ -11,7 +11,7 @@
 
     <color name="font_title">#212121</color>
     <color name="font_subhead">#727272</color>
-    <color name="font_button">#3c3c3d</color>
+    <color name="font_button">#727272</color>
     <color name="divider">#dadada</color>
 
     <color name="window_background">#fafafa</color>

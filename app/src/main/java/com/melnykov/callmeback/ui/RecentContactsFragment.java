@@ -209,7 +209,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             .positiveText(R.string.rate)
             .positiveColorRes(R.color.primary)
             .negativeText(R.string.close)
-            .negativeColorRes(R.color.primary)
+            .negativeColorRes(R.color.font_button)
             .callback(new MaterialDialog.Callback() {
                 @Override
                 public void onPositive(MaterialDialog dialog) {
