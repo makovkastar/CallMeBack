@@ -1,20 +1,26 @@
 package com.melnykov.callmeback.ui;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
+import com.melnykov.callmeback.Utils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initStatusBarTint();
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -30,6 +36,19 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new OperatorsFragment())
                     .commit();
             }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void initStatusBarTint() {
+        if (Utils.hasKitKatApi() && !Utils.hasLollipopApi()) {
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setTintColor(getResources().getColor(R.color.primary));
         }
     }
 
