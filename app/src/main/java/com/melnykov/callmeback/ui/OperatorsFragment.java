@@ -3,6 +3,7 @@ package com.melnykov.callmeback.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.text.Html;
@@ -33,8 +34,8 @@ public class OperatorsFragment extends ListFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         Context context = getActivity().getApplicationContext();
 
         setListAdapter(new OperatorsAdapter(getActivity()));
@@ -44,7 +45,7 @@ public class OperatorsFragment extends ListFragment {
         // ListView has a header view, so positions are shifted by 1.
         getListView().setItemChecked(Operators.getPosition(operatorId) + 1, true);
 
-        Button next = (Button) view.findViewById(R.id.next);
+        Button next = (Button) getView().findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
