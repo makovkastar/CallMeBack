@@ -24,3 +24,7 @@ local.properties
 # Gradle
 .gradle
 build/
+
+# Crashlytics
+crashlytics-build.properties
+com_crashlytics_export_strings.xml
