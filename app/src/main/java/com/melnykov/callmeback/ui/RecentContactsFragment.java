@@ -99,7 +99,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         fab.animate()
             .scaleX(1)
             .scaleY(1)
-            .setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime))
+            .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
             .setInterpolator(new AccelerateInterpolator())
             .setStartDelay(500)
             .start();

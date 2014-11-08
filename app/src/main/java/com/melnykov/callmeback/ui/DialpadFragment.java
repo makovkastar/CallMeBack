@@ -112,7 +112,7 @@ public class DialpadFragment extends Fragment {
         });
 
         ImageButton dial = (ImageButton) view.findViewById(R.id.dial);
-        dial.setImageDrawable(Utils.getColoredDrawable(getActivity(), R.drawable.ic_phone_forwarded_white_36dp,
+        dial.setImageDrawable(Utils.getColoredDrawable(getActivity(), R.drawable.ic_phone_white_36dp,
             R.color.primary));
         dial.setOnClickListener(new View.OnClickListener() {
             @Override
