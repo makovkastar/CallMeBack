@@ -10,8 +10,6 @@ import android.widget.Button;
 import com.crashlytics.android.Crashlytics;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
-import com.melnykov.callmeback.Utils;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -19,7 +17,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
-        initStatusBarTint();
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -35,14 +32,6 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new OperatorsFragment())
                     .commit();
             }
-        }
-    }
-
-    private void initStatusBarTint() {
-        if (Utils.isKitKat()) {
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setTintColor(getResources().getColor(R.color.primary));
         }
     }
 
