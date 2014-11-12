@@ -41,13 +41,8 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void initStatusBarTint() {
-        if (Utils.hasKitKatApi() && !Utils.hasLollipopApi()) {
-            getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
+        if (Utils.isKitKat()) {
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
             tintManager.setTintColor(getResources().getColor(R.color.primary));

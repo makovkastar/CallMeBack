@@ -78,11 +78,11 @@ public class Utils {
             .show();
     }
 
-    public static boolean hasKitKatApi() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    public static boolean isKitKat() {
+        return Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT;
     }
 
-    public static boolean hasLollipopApi() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    public static boolean isLollipop() {
+        return Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP;
     }
 }
