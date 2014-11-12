@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -148,6 +149,7 @@ public class DialpadFragment extends Fragment {
     }
 
     public void onDigitClick(Button button) {
+        button.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
         mPhoneNumber.append(button.getText());
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <Button
         android:id="@+id/next"
@@ -13,27 +13,27 @@
         android:layout_alignParentBottom="true"
         android:text="@string/button_next"
         android:textColor="@color/font_title"
-        android:textSize="@dimen/font_title" />
+        android:textSize="@dimen/font_title"/>
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/next"
-        android:background="@color/divider" />
+        android:background="@color/divider"/>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/divider"
-        android:drawSelectorOnTop="false" />
+        android:drawSelectorOnTop="false"/>
 
     <View
         android:id="@+id/shadow"
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_alignTop="@android:id/list"
-        android:background="@drawable/bottom_shadow" />
+        android:background="@drawable/bottom_shadow"/>
 
 </RelativeLayout>

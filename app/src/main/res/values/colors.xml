@@ -14,5 +14,7 @@
     <color name="font_button">#727272</color>
     <color name="divider">#dadada</color>
 
+    <color name="ripple">#b8b8b8</color>
+
     <color name="window_background">#fafafa</color>
 </resources>
