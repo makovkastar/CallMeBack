@@ -9,7 +9,6 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.view.animation.AccelerateInterpolator;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,9 +17,6 @@ import com.melnykov.fab.FloatingActionButton;
 import java.util.List;
 
 public class Utils {
-
-    private static final String MARKET_APP_URI = "market://details?id=com.melnykov.callmeback";
-    private static final String MARKET_BROWSER_URI = "https://play.google.com/store/apps/details?id=com.melnykov.callmeback";
 
     private Utils() {
         // Prevent instantiation
@@ -41,9 +37,9 @@ public class Utils {
     }
 
     public static void startPlayStore(Context context) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_APP_URI));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName()));
         if (!Utils.isIntentResolvable(context, intent)) {
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_BROWSER_URI));
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + context.getPackageName()));
         }
         context.startActivity(intent);
     }
@@ -90,13 +86,5 @@ public class Utils {
             .setInterpolator(new AccelerateInterpolator())
             .setStartDelay(500)
             .start();
-    }
-
-    public static boolean isKitKat() {
-        return Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT;
-    }
-
-    public static boolean isLollipop() {
-        return Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP;
     }
 }

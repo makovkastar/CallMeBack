@@ -57,7 +57,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     private Uri mContactUri;
     private Operator mOperator;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_recent_contacts, container, false);
