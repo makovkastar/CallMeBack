@@ -20,7 +20,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -90,19 +89,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 ((MainActivity) getActivity()).onShowDialpad();
             }
         });
-        animateFab(fab);
-    }
-
-    private void animateFab(final FloatingActionButton fab) {
-        fab.setScaleX(0);
-        fab.setScaleY(0);
-        fab.animate()
-            .scaleX(1)
-            .scaleY(1)
-            .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
-            .setInterpolator(new AccelerateInterpolator())
-            .setStartDelay(500)
-            .start();
+        Utils.animateFab(fab, getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
     @Override

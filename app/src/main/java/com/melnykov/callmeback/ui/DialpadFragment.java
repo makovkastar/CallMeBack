@@ -34,6 +34,7 @@ import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.Utils;
 import com.melnykov.callmeback.model.Operator;
+import com.melnykov.fab.FloatingActionButton;
 
 public class DialpadFragment extends Fragment {
 
@@ -112,9 +113,7 @@ public class DialpadFragment extends Fragment {
             }
         });
 
-        ImageButton dial = (ImageButton) view.findViewById(R.id.dial);
-        dial.setImageDrawable(Utils.getColoredDrawable(getActivity(), R.drawable.ic_phone_white_36dp,
-            R.color.primary));
+        FloatingActionButton dial = (FloatingActionButton) view.findViewById(R.id.dial);
         dial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +128,7 @@ public class DialpadFragment extends Fragment {
                 }
             }
         });
+        Utils.animateFab(dial, getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
     @Override

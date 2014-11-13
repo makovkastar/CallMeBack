@@ -10,10 +10,10 @@
         android:orientation="horizontal">
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -22,10 +22,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -34,10 +34,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -52,10 +52,10 @@
         android:orientation="horizontal">
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -64,10 +64,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -76,10 +76,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -95,10 +95,10 @@
         android:orientation="horizontal">
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -107,10 +107,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -119,10 +119,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -137,10 +137,10 @@
         android:orientation="horizontal">
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -149,10 +149,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
@@ -161,10 +161,10 @@
             android:textSize="@dimen/font_display2"/>
 
         <Button
-            style="?android:borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:fontFamily="sans-serif-light"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"

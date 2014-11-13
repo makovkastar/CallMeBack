@@ -10,8 +10,10 @@ import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.view.animation.AccelerateInterpolator;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.List;
 
@@ -76,6 +78,18 @@ public class Utils {
             })
             .build()
             .show();
+    }
+
+    public static void animateFab(FloatingActionButton fab, long duration) {
+        fab.setScaleX(0);
+        fab.setScaleY(0);
+        fab.animate()
+            .scaleX(1)
+            .scaleY(1)
+            .setDuration(duration)
+            .setInterpolator(new AccelerateInterpolator())
+            .setStartDelay(500)
+            .start();
     }
 
     public static boolean isKitKat() {

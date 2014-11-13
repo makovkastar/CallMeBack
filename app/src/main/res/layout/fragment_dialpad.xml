@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <ImageButton
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/dial"
-        style="?android:borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/dial"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@color/divider"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_phone_white_24dp"
+        fab:fab_colorNormal="#4CAF50"
+        fab:fab_colorPressed="#43A047"
+        fab:fab_colorRipple="#66BB6A"/>
 
     <include
         android:id="@+id/dialpad"
         layout="@layout/dialpad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/divider"
+        android:layout_above="@id/dial"
         android:layout_marginBottom="8dp"/>
 
     <LinearLayout
