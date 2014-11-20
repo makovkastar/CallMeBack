@@ -16,4 +16,6 @@
 #   public *;
 #}
 
+-dontobfuscate
+
 -dontwarn com.squareup.okhttp.**
