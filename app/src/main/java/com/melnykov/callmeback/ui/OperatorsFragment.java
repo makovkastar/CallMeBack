@@ -67,7 +67,7 @@ public class OperatorsFragment extends ListFragment {
         headerView.setText(Html.fromHtml(getString(R.string.welcome_text)));
 
         ListView listView = (ListView) root.findViewById(android.R.id.list);
-        listView.addHeaderView(headerView);
+        listView.addHeaderView(headerView, null, false);
 
         return root;
     }
