@@ -9,7 +9,7 @@
     <color name="invalid">#f44336</color>
     <color name="valid">#4caf50</color>
 
-    <color name="font_title">#212121</color>
+    <color name="font_title">#de212121</color>
     <color name="font_subhead">#727272</color>
     <color name="font_button">#727272</color>
     <color name="divider">#dadada</color>
