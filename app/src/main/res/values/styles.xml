@@ -12,9 +12,10 @@
 
     <style name="DialpadButton">
         <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:textColor">@null</item>
     </style>
 
-    <style name="DialpadButtonText" parent="TextAppearance.AppCompat">
+    <style name="DialpadButtonText" parent="android:TextAppearance">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
         <item name="android:textColor">@color/primary</item>
         <item name="android:textSize">@dimen/font_display2</item>
