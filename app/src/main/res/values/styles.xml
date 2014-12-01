@@ -10,6 +10,10 @@
         <item name="android:windowBackground">@color/window_background</item>
     </style>
 
+    <style name="DialpadButton">
+        <item name="android:background">?android:selectableItemBackground</item>
+    </style>
+
     <style name="DialpadButtonText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
         <item name="android:textColor">@color/primary</item>

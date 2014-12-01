@@ -10,30 +10,30 @@
         android:orientation="horizontal">
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="1"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="2"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="3"
@@ -46,30 +46,30 @@
         android:orientation="horizontal">
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="4"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="5"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="6"
@@ -83,30 +83,30 @@
         android:orientation="horizontal">
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="7"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="8"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="9"
@@ -119,30 +119,30 @@
         android:orientation="horizontal">
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="*"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="0"
             android:textAppearance="@style/DialpadButtonText" />
 
         <Button
+            style="@style/DialpadButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
             android:hapticFeedbackEnabled="true"
             android:onClick="onDigitClick"
             android:text="#"
