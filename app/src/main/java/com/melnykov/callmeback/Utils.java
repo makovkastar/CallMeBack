@@ -9,6 +9,7 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -83,7 +84,7 @@ public class Utils {
             .scaleX(1)
             .scaleY(1)
             .setDuration(duration)
-            .setInterpolator(new AccelerateInterpolator())
+            .setInterpolator(new AccelerateDecelerateInterpolator())
             .setStartDelay(500)
             .start();
     }
