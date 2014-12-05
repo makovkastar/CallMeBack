@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -61,6 +63,10 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_recent_contacts, container, false);
 
+        ListView list = (ListView) root.findViewById(android.R.id.list);
+        View listFooter = inflater.inflate(R.layout.recent_contacts_footer, null);
+        list.addFooterView(listFooter, null, false);
+
         TextView emptyView = (TextView) root.findViewById(android.R.id.empty);
         emptyView.setText(Html.fromHtml(getString(R.string.no_recent_contacts)));
 
@@ -92,6 +98,12 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setListAdapter(mAdapter);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -101,7 +113,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
         mAdapter = new CallLogAdapter(getActivity());
         mAdapter.setLoading(true);
-        setListAdapter(mAdapter);
 
         getLoaderManager().initLoader(LOADER_CALL_LOG, null, this);
     }
