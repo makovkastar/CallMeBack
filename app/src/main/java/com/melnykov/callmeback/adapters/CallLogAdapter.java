@@ -39,7 +39,7 @@ public class CallLogAdapter extends BaseAdapter {
 
     public CallLogAdapter(Context context) {
         mContext = context;
-        mContactUriCache = new HashMap<String, Uri>();
+        mContactUriCache = new HashMap<>();
         mExecutorService = Executors.newCachedThreadPool();
         mHandler = new Handler() {
             @Override

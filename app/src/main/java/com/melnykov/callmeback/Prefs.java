@@ -24,6 +24,6 @@ public class Prefs {
 
     public static int getOperatorId(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(KEY_OPERATOR_ID, Integer.MIN_VALUE);
+        return prefs.getInt(KEY_OPERATOR_ID, 0);
     }
 }

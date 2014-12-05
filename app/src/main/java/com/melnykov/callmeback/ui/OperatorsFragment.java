@@ -33,18 +33,36 @@ public class OperatorsFragment extends ListFragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_operators, container, false);
+
+        TextView headerView = (TextView) inflater.inflate(R.layout.operators_header, null);
+        headerView.setText(Html.fromHtml(getString(R.string.welcome_text)));
+
+        ListView listView = (ListView) root.findViewById(android.R.id.list);
+        listView.addHeaderView(headerView, null, false);
+
+        return root;
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Context context = getActivity().getApplicationContext();
 
         setListAdapter(new OperatorsAdapter(getActivity()));
 
-        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        int operatorId = Prefs.isOperatorSelected(context) ? Prefs.getOperatorId(context) : 0;
+        int operatorId = Prefs.getOperatorId(getActivity().getApplicationContext());
         // ListView has a header view, so positions are shifted by 1.
         getListView().setItemChecked(Operators.getPosition(operatorId) + 1, true);
+    }
 
-        Button next = (Button) getView().findViewById(R.id.next);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        Button next = (Button) view.findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,18 +75,5 @@ public class OperatorsFragment extends ListFragment {
     @Override
     public OperatorsAdapter getListAdapter() {
         return (OperatorsAdapter) super.getListAdapter();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_operators, container, false);
-
-        TextView headerView = (TextView) inflater.inflate(R.layout.operators_header, null);
-        headerView.setText(Html.fromHtml(getString(R.string.welcome_text)));
-
-        ListView listView = (ListView) root.findViewById(android.R.id.list);
-        listView.addHeaderView(headerView, null, false);
-
-        return root;
     }
 }
