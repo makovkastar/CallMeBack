@@ -48,10 +48,12 @@ public class OperatorsFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Context context = getActivity().getApplicationContext();
 
         setListAdapter(new OperatorsAdapter(getActivity()));
 
-        int operatorId = Prefs.getOperatorId(getActivity().getApplicationContext());
+        int operatorId = Prefs.isOperatorSelected(context) ? Prefs.getOperatorId(context)
+                : Operators.DEFAULT_OPERATOR_ID;
         // ListView has a header view, so positions are shifted by 1.
         getListView().setItemChecked(Operators.getPosition(operatorId) + 1, true);
     }

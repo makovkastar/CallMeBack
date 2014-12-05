@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Operators {
 
+    public static final int DEFAULT_OPERATOR_ID = 0;
+
     private static final List<Operator> mList = Arrays.asList(
         // Ukraine
         new Operator(0, R.string.kyivstar, R.drawable.kyivstar, Country.UKRAINE, "*130*38%s#"),
