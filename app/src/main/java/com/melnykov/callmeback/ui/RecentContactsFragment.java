@@ -65,18 +65,9 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
         ListView list = (ListView) root.findViewById(android.R.id.list);
         View listFooter = inflater.inflate(R.layout.recent_contacts_footer, null);
+
         list.addFooterView(listFooter, null, false);
-
-        TextView emptyView = (TextView) root.findViewById(android.R.id.empty);
-        emptyView.setText(Html.fromHtml(getString(R.string.no_recent_contacts)));
-
-        Button allContacts = (Button) root.findViewById(R.id.all_contacts);
-        allContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickContact();
-            }
-        });
+        list.setFooterDividersEnabled(false);
 
         return root;
     }
@@ -87,6 +78,17 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
         getListView().setOnItemClickListener(this);
 
+        TextView emptyView = (TextView) view.findViewById(android.R.id.empty);
+        emptyView.setText(Html.fromHtml(getString(R.string.no_recent_contacts)));
+
+        Button allContacts = (Button) view.findViewById(R.id.all_contacts);
+        allContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickContact();
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +96,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 ((MainActivity) getActivity()).onShowDialpad();
             }
         });
+
         Utils.animateFab(fab, getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
