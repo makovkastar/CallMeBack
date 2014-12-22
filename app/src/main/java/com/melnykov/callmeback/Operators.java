@@ -26,7 +26,7 @@ public class Operators {
         new Operator(104, R.string.tele2_ru, R.drawable.tele2, Country.RUSSIA, "*118*8%s#"),
         new Operator(105, R.string.motiv, R.drawable.motiv, Country.RUSSIA, "*105*8%s#"),
         new Operator(106, R.string.smarts, R.drawable.smarts, Country.RUSSIA, "*134*%s#"),
-        new Operator(107, R.string.nss, R.drawable.nss, Country.RUSSIA, "*135*%s#"),
+        new Operator(107, R.string.nss, R.drawable.nss, Country.RUSSIA, "*118*%s#"),
         new Operator(108, R.string.bwc, R.drawable.bwc, Country.RUSSIA, "*141*%s#"),
         new Operator(109, R.string.akoc, R.drawable.akoc, Country.RUSSIA, "*123*%s#"),
         new Operator(110, R.string.etk, R.drawable.etk, Country.RUSSIA, "*102*50*%s#"),
