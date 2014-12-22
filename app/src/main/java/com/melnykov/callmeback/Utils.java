@@ -9,6 +9,7 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 
@@ -18,6 +19,10 @@ import com.melnykov.fab.FloatingActionButton;
 import java.util.List;
 
 public class Utils {
+
+    private static final String UNKNOWN_NUMBER = "-1";
+    private static final String PRIVATE_NUMBER = "-2";
+    private static final String PAYPHONE_NUMBER = "-3";
 
     private Utils() {
         // Prevent instantiation
@@ -87,5 +92,12 @@ public class Utils {
             .setInterpolator(new AccelerateDecelerateInterpolator())
             .setStartDelay(500)
             .start();
+    }
+
+    public static boolean canPlaceCallsTo(String number) {
+        return !(TextUtils.isEmpty(number)
+                || number.equals(UNKNOWN_NUMBER)
+                || number.equals(PRIVATE_NUMBER)
+                || number.equals(PAYPHONE_NUMBER));
     }
 }

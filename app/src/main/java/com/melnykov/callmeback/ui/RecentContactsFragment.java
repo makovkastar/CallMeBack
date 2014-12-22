@@ -248,9 +248,11 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         if (cursor != null) {
             cursor.moveToPosition(-1);
             while (cursor.moveToNext() && items.size() <= MAX_RECENT_CONTACTS) {
-                String name = cursor.getString(CallLogQuery.CACHED_NAME);
                 String number = cursor.getString(CallLogQuery.NUMBER);
-                items.add(new CallLogItem(name, number));
+                if (Utils.canPlaceCallsTo(number)) {
+                    String name = cursor.getString(CallLogQuery.CACHED_NAME);
+                    items.add(new CallLogItem(name, number));
+                }
             }
         }
         return new ArrayList<>(items);
