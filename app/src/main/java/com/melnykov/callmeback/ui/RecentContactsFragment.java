@@ -253,7 +253,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 items.add(new CallLogItem(name, number));
             }
         }
-        return new ArrayList<CallLogItem>(items);
+        return new ArrayList<>(items);
     }
 
     @Override
