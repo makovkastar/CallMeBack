@@ -25,7 +25,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="?attr/itemDivider" />
+            android:background="?itemDivider" />
 
         <TextView
             android:id="@+id/message"

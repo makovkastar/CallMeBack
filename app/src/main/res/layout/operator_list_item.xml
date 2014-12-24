@@ -4,11 +4,11 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:checkMark="?android:attr/listChoiceIndicatorSingle"
+    android:checkMark="?android:listChoiceIndicatorSingle"
     android:drawablePadding="16dp"
     android:fontFamily="sans-serif-light"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:textColor="?attr/fontTitle"
+    android:textColor="?fontTitle"
     android:textSize="@dimen/font_title" />
