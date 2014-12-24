@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -25,14 +22,6 @@ public class Utils {
 
     private Utils() {
         // Prevent instantiation
-    }
-
-    public static Drawable getColoredDrawable(Context context, int whiteDrawableResId, int targetColorResId) {
-        Drawable drawable = context.getResources().getDrawable(whiteDrawableResId);
-        int color = context.getResources().getColor(targetColorResId);
-        ColorFilter filter = new LightingColorFilter(color, 0);
-        drawable.mutate().setColorFilter(filter);
-        return drawable;
     }
 
     public static boolean isIntentResolvable(Context context, Intent intent) {
