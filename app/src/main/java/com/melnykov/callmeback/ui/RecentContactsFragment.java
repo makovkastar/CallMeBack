@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -250,7 +249,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     }
 
     private List<CallLogItem> convertCursor(Cursor cursor) {
-        Set<CallLogItem> items = new LinkedHashSet<CallLogItem>(MAX_RECENT_CONTACTS);
+        Set<CallLogItem> items = new LinkedHashSet<>(MAX_RECENT_CONTACTS);
         if (cursor != null) {
             cursor.moveToPosition(-1);
             while (cursor.moveToNext() && items.size() <= MAX_RECENT_CONTACTS) {
