@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/next"
-        android:background="?attr/listDivider" />
+        android:background="?dividerBackground" />
 
     <ListView
         android:id="@android:id/list"

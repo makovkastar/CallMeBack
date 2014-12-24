@@ -4,7 +4,7 @@
     <attr name="fontSubhead" format="color"/>
     <attr name="fontButton" format="color"/>
     <attr name="fontDialpadButton" format="color"/>
-    <attr name="listDivider" format="color"/>
+    <attr name="dividerBackground" format="color"/>
     <attr name="recentContactsHeaderBackground" format="color"/>
     <attr name="operatorsHeaderBackground" format="color"/>
     <attr name="iconBackspace" format="reference"/>
