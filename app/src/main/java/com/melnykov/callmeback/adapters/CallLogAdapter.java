@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.makeramen.RoundedTransformationBuilder;
+import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.model.CallLogItem;
 import com.melnykov.callmeback.queries.PhoneQuery;
@@ -100,7 +101,8 @@ public class CallLogAdapter extends BaseAdapter {
             Uri contactUri = mContactUriCache.get(item.getNumber());
             Picasso.with(mContext)
                 .load(contactUri)
-                .placeholder(R.drawable.contact_photo_placeholder)
+                .placeholder(Prefs.isDarkTheme(mContext) ? R.drawable.contact_photo_placeholder_dark
+                    : R.drawable.contact_photo_placeholder_light)
                 .fit()
                 .centerCrop()
                 .transform(mAvatarTransformation)
@@ -111,7 +113,7 @@ public class CallLogAdapter extends BaseAdapter {
                 mExecutorService.submit(new ContactUriFetcher(item.getNumber()));
             }
             Picasso.with(mContext)
-                .load(R.drawable.contact_photo_placeholder)
+                .load(R.drawable.contact_photo_placeholder_light)
                 .fit()
                 .into(holder.avatar);
         }
