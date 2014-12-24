@@ -161,10 +161,12 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 mAdapter.swapItems(convertCursor(cursor));
                 break;
             case LOADER_PHONE_NUMBER:
-                cursor.moveToFirst();
-                String number = cursor.getString(cursor.getColumnIndex(
-                    ContactsContract.CommonDataKinds.Phone.NUMBER));
-                dialSelectedNumber(number);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    String number = cursor.getString(cursor.getColumnIndex(
+                            ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    dialSelectedNumber(number);
+                }
                 getLoaderManager().destroyLoader(loader.getId());
                 mContactUri = null;
         }
