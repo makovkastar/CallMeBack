@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="?fontTitle"
+            android:textColor="?attr/titleTextColor"
             android:textSize="@dimen/font_title" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:textColor="?fontSubhead"
+            android:textColor="?attr/subheadTextColor"
             android:textSize="@dimen/font_subhead" />
     </LinearLayout>
 

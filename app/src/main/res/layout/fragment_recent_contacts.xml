@@ -33,7 +33,7 @@
         android:gravity="center"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:textColor="?fontSubhead"
+        android:textColor="?attr/subheadTextColor"
         android:textSize="@dimen/font_subhead" />
 
     <com.melnykov.fab.FloatingActionButton

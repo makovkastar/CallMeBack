@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:background="?android:selectableItemBackground"
         android:text="@string/button_next"
-        android:textColor="?fontTitle"
+        android:textColor="?attr/buttonTextColor"
         android:textSize="@dimen/font_title" />
 
     <View
