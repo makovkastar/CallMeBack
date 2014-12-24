@@ -16,6 +16,8 @@
         <item name="operatorsHeaderBackground">#eaeaea</item>
 
         <item name="iconBackspace">@drawable/ic_backspace_grey600_24dp</item>
+
+        <item name="md_accent_color">@color/primary</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
@@ -35,6 +37,8 @@
         <item name="operatorsHeaderBackground">#d9242424</item>
 
         <item name="iconBackspace">@drawable/ic_backspace_white_24dp</item>
+
+        <item name="md_dark_theme">true</item>
     </style>
 
     <style name="DialpadButton">

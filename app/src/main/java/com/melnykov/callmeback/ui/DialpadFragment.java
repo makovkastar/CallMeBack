@@ -169,13 +169,6 @@ public class DialpadFragment extends Fragment {
             .title(R.string.title_invalid_number)
             .content(Html.fromHtml(getString(R.string.msg_invalid_number, phoneNumber)))
             .positiveText(R.string.close)
-            .positiveColorRes(R.color.primary)
-            .callback(new MaterialDialog.SimpleCallback() {
-                @Override
-                public void onPositive(MaterialDialog dialog) {
-                    // NOP
-                }
-            })
             .build()
             .show();
     }

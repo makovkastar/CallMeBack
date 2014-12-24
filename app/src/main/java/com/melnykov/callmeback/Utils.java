@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.fab.FloatingActionButton;
@@ -52,46 +51,32 @@ public class Utils {
 
     public static void showDialerNotInstalledDialog(Activity activity) {
         new MaterialDialog.Builder(activity)
-            .title(R.string.title_error)
-            .content(R.string.msg_dialer_not_installed)
-            .positiveText(R.string.close)
-            .positiveColorRes(R.color.primary)
-            .callback(new MaterialDialog.SimpleCallback() {
-                @Override
-                public void onPositive(MaterialDialog dialog) {
-                    // NOP
-                }
-            })
-            .build()
-            .show();
+                .title(R.string.title_error)
+                .content(R.string.msg_dialer_not_installed)
+                .positiveText(R.string.close)
+                .build()
+                .show();
     }
 
     public static void showPickContactNotInstalledDialog(Activity activity) {
         new MaterialDialog.Builder(activity)
-            .title(R.string.title_error)
-            .content(R.string.msg_pick_contact_not_installed)
-            .positiveText(R.string.close)
-            .positiveColorRes(R.color.primary)
-            .callback(new MaterialDialog.SimpleCallback() {
-                @Override
-                public void onPositive(MaterialDialog dialog) {
-                    // NOP
-                }
-            })
-            .build()
-            .show();
+                .title(R.string.title_error)
+                .content(R.string.msg_pick_contact_not_installed)
+                .positiveText(R.string.close)
+                .build()
+                .show();
     }
 
     public static void animateFab(FloatingActionButton fab, long duration) {
         fab.setScaleX(0);
         fab.setScaleY(0);
         fab.animate()
-            .scaleX(1)
-            .scaleY(1)
-            .setDuration(duration)
-            .setInterpolator(new AccelerateDecelerateInterpolator())
-            .setStartDelay(500)
-            .start();
+                .scaleX(1)
+                .scaleY(1)
+                .setDuration(duration)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .setStartDelay(500)
+                .start();
     }
 
     public static boolean canPlaceCallsTo(String number) {
@@ -101,7 +86,7 @@ public class Utils {
                 || number.equals(PAYPHONE_NUMBER));
     }
 
-    public static int getCurrentTheme(Context context) {
+    public static int getTheme(Context context) {
         if (Prefs.isDarkTheme(context)) {
             return R.style.AppThemeDark;
         } else {

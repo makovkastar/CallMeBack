@@ -212,17 +212,11 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             .title(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
             .content(Html.fromHtml(getString(R.string.about_message)))
             .positiveText(R.string.rate)
-            .positiveColorRes(R.color.primary)
             .negativeText(R.string.close)
-            .callback(new MaterialDialog.Callback() {
+            .callback(new MaterialDialog.ButtonCallback() {
                 @Override
                 public void onPositive(MaterialDialog dialog) {
                     Utils.startPlayStore(getActivity());
-                }
-
-                @Override
-                public void onNegative(MaterialDialog dialog) {
-                    // NOP
                 }
             })
             .build()
