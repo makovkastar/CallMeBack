@@ -3,8 +3,9 @@
     <string name="app_name">Перезвони мне</string>
 
     <!-- Menu -->
-    <string name="action_about">О программе</string>
     <string name="action_change_operator">Изменить оператора</string>
+    <string name="action_dark_theme">Тёмный фон</string>
+    <string name="action_about">О программе</string>
     <string name="action_recent_contacts">Недавние контакты</string>
 
     <string name="select_operator">Выбор оператора</string>

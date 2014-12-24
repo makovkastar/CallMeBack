@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:background="?android:selectableItemBackground"
         android:text="@string/button_next"
-        android:textColor="@color/font_title"
+        android:textColor="?attr/fontTitle"
         android:textSize="@dimen/font_title" />
 
     <View
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/next"
-        android:background="@color/divider" />
+        android:background="?attr/itemDivider" />
 
     <ListView
         android:id="@android:id/list"

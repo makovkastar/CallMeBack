@@ -33,7 +33,7 @@
         android:gravity="center"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:textColor="@color/font_subhead"
+        android:textColor="?attr/fontSubhead"
         android:textSize="@dimen/font_subhead" />
 
     <com.melnykov.fab.FloatingActionButton
@@ -46,7 +46,7 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_dialpad_white_24dp"
         fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_dark"
-        fab:fab_colorRipple="@color/accent_light" />
+        fab:fab_colorPressed="@color/accent_darker"
+        fab:fab_colorRipple="@color/accent_lighter" />
 
 </RelativeLayout>

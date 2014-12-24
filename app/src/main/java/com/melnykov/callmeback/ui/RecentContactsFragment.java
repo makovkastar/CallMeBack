@@ -195,8 +195,13 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             case R.id.action_change_operator:
                 ((MainActivity) getActivity()).onChangeOperator();
                 return true;
+            case R.id.action_dark_theme:
+                Prefs.setDarkTheme(getActivity(), !item.isChecked());
+                ((MainActivity) getActivity()).onChangeTheme();
+                return true;
             case R.id.action_about:
                 showAboutDialog();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -209,7 +214,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             .positiveText(R.string.rate)
             .positiveColorRes(R.color.primary)
             .negativeText(R.string.close)
-            .negativeColorRes(R.color.font_button)
             .callback(new MaterialDialog.Callback() {
                 @Override
                 public void onPositive(MaterialDialog dialog) {
@@ -241,6 +245,12 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main, menu);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.action_dark_theme).setChecked(Prefs.isDarkTheme(getActivity()));
     }
 
     private List<CallLogItem> convertCursor(Cursor cursor) {

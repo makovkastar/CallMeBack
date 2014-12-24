@@ -10,11 +10,13 @@ import android.widget.Button;
 import com.crashlytics.android.Crashlytics;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
+import com.melnykov.callmeback.Utils;
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(Utils.getCurrentTheme(this));
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
         setContentView(R.layout.activity_main);
@@ -75,5 +77,9 @@ public class MainActivity extends ActionBarActivity {
             .setCustomAnimations(R.anim.fragment_enter_top, R.anim.fragment_exit_top)
             .replace(R.id.container, new RecentContactsFragment(), RecentContactsFragment.TAG)
             .commit();
+    }
+
+    public void onChangeTheme() {
+        recreate();
     }
 }

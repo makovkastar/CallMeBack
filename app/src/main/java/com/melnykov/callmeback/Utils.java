@@ -100,4 +100,12 @@ public class Utils {
                 || number.equals(PRIVATE_NUMBER)
                 || number.equals(PAYPHONE_NUMBER));
     }
+
+    public static int getCurrentTheme(Context context) {
+        if (Prefs.isDarkTheme(context)) {
+            return R.style.AppThemeDark;
+        } else {
+            return R.style.AppThemeLight;
+        }
+    }
 }

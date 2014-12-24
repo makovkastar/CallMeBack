@@ -1,12 +1,40 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background_light</item>
+
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary_darker</item>
         <item name="colorAccent">@color/accent</item>
 
-        <item name="android:windowBackground">@color/window_background</item>
+        <item name="fontTitle">#de000000</item>
+        <item name="fontSubhead">#8a000000</item>
+        <item name="fontButton">#de000000</item>
+        <item name="fontDialpadButton">@color/primary</item>
+        <item name="itemDivider">#1f000000</item>
+
+        <item name="recentContactsHeaderBackground">#eaeaea</item>
+        <item name="operatorsHeaderBackground">#eaeaea</item>
+
+        <item name="iconBackspace">@drawable/ic_backspace_grey600_24dp</item>
+    </style>
+
+    <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/window_background_dark</item>
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_darker</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="fontTitle">#ffffff</item>
+        <item name="fontSubhead">#b3ffffff</item>
+        <item name="fontButton">#ffffff</item>
+        <item name="fontDialpadButton">#ffffff</item>
+        <item name="itemDivider">#1fffffff</item>
+
+        <item name="recentContactsHeaderBackground">#d9242424</item>
+        <item name="operatorsHeaderBackground">#d9242424</item>
+
+        <item name="iconBackspace">@drawable/ic_backspace_white_24dp</item>
     </style>
 
     <style name="DialpadButton">
@@ -16,7 +44,7 @@
 
     <style name="DialpadButtonText" parent="android:TextAppearance">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
-        <item name="android:textColor">@color/primary</item>
+        <item name="android:textColor">?fontDialpadButton</item>
         <item name="android:textSize">@dimen/font_display2</item>
     </style>
 </resources>
