@@ -97,12 +97,13 @@ public class CallLogAdapter extends BaseAdapter {
         holder.name.setText(TextUtils.isEmpty(item.getName()) ? item.getNumber() : item.getName());
         holder.number.setText(item.getNumber());
 
+        int placeholderDrawableResId = Prefs.isDarkTheme(mContext) ? R.drawable.contact_photo_placeholder_dark
+                : R.drawable.contact_photo_placeholder_light;
         if (mContactUriCache.containsKey(item.getNumber())) {
             Uri contactUri = mContactUriCache.get(item.getNumber());
             Picasso.with(mContext)
                 .load(contactUri)
-                .placeholder(Prefs.isDarkTheme(mContext) ? R.drawable.contact_photo_placeholder_dark
-                    : R.drawable.contact_photo_placeholder_light)
+                .placeholder(placeholderDrawableResId)
                 .fit()
                 .centerCrop()
                 .transform(mAvatarTransformation)
@@ -113,7 +114,7 @@ public class CallLogAdapter extends BaseAdapter {
                 mExecutorService.submit(new ContactUriFetcher(item.getNumber()));
             }
             Picasso.with(mContext)
-                .load(R.drawable.contact_photo_placeholder_light)
+                .load(placeholderDrawableResId)
                 .fit()
                 .into(holder.avatar);
         }
