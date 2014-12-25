@@ -23,7 +23,7 @@ android {
         applicationId "com.melnykov.callmeback"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 7
+        versionCode 8
         versionName "1.4"
     }
     buildTypes {
