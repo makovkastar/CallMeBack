@@ -60,7 +60,6 @@
         <br/>
         Виберіть зі списку ваш мобільний оператор і натисніть <b>«ДАЛІ»</b>.
     ]]></string>
-    <string name="about_title" translatable="false">%1$s v%2$s</string>
     <string name="about_message"><![CDATA[
         «Передзвони мені» — це безкоштовний додаток з відкритим <a href="https://github.com/makovkastar/CallMeBack">вихідним кодом</a>.
         <br/>
