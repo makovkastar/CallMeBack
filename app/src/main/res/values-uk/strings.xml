@@ -6,7 +6,7 @@
     <string name="action_change_operator">Змінити оператора</string>
     <string name="action_dark_theme">Темний фон</string>
     <string name="action_about">Про програму</string>
-    <string name="action_recent_contacts">Недавні контакти</string>
+    <string name="action_recent_contacts">Останні контакти</string>
 
     <string name="select_operator">Вибір оператора</string>
     <string name="button_next">ДАЛІ</string>
@@ -16,7 +16,7 @@
         <br/>
         Ви можете вибрати контакт з телефонної книги або набрати номер вручну.
     ]]></string>
-    <string name="recent_contacts">Недавні контакти</string>
+    <string name="recent_contacts">Останні контакти</string>
     <string name="all_contacts">ВСІ КОНТАКТИ</string>
 
     <!-- Operators -->
