@@ -87,7 +87,7 @@ public class DialerTest extends TestCase {
     public void testHcc() {
         Operator operator = Operators.getById(107);
         testRuNumbersValid(operator);
-        testRuRecallNumber(operator, "*135*9806051515#");
+        testRuRecallNumber(operator, "*118*9806051515#");
     }
 
     public void testBwc() {
@@ -112,6 +112,12 @@ public class DialerTest extends TestCase {
         Operator operator = Operators.getById(111);
         testRuNumbersValid(operator);
         testRuRecallNumber(operator, "*168*89806051515#");
+    }
+
+    public void testYota() {
+        Operator operator = Operators.getById(112);
+        testRuNumbersValid(operator);
+        testRuRecallNumber(operator, "*144*89806051515#");
     }
 
     public void testVelcom() {
