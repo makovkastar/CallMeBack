@@ -160,8 +160,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 mAdapter.swapItems(convertCursor(cursor));
                 break;
             case LOADER_PHONE_NUMBER:
-                if (cursor != null) {
-                    cursor.moveToFirst();
+                if (cursor != null && cursor.moveToFirst()) {
                     String number = cursor.getString(cursor.getColumnIndex(
                             ContactsContract.CommonDataKinds.Phone.NUMBER));
                     dialSelectedNumber(number);
