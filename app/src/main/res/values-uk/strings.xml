@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Передзвони мені</string>
+
+    <!-- Menu -->
+    <string name="action_change_operator">Змінити оператора</string>
+    <string name="action_dark_theme">Темний фон</string>
+    <string name="action_about">Про програму</string>
+    <string name="action_recent_contacts">Останні контакти</string>
+
+    <string name="select_operator">Вибір оператора</string>
+    <string name="button_next">ДАЛІ</string>
+    <string name="manual_dial">Набір номера</string>
+    <string name="no_recent_contacts"><![CDATA[
+        <b>Немає останніх контактів.</b>
+        <br/>
+        Ви можете вибрати контакт з телефонної книги або набрати номер вручну.
+    ]]></string>
+    <string name="recent_contacts">Останні контакти</string>
+    <string name="all_contacts">ВСІ КОНТАКТИ</string>
+
+    <!-- Operators -->
+    <!-- Ukraine -->
+    <string name="kyivstar">Київстар</string>
+    <string name="mts_ua">МТС Україна</string>
+    <string name="beeline_ua">Beeline Україна</string>
+    <string name="djuice">Djuice</string>
+    <string name="life_ua">life:) Україна</string>
+    <string name="utel">Utel</string>
+    <!-- Russia -->
+    <string name="mts_ru">МТС Росія</string>
+    <string name="beeline_ru">Beeline Росія</string>
+    <string name="megafon">Мегафон</string>
+    <string name="rostelecom">Ростелеком</string>
+    <string name="tele2_ru">Теле2 Росія</string>
+    <string name="motiv">Мотив</string>
+    <string name="smarts">Смартс</string>
+    <string name="nss">НСС</string>
+    <string name="bwc">Байкалвестком</string>
+    <string name="akoc">AKOC GSM</string>
+    <string name="etk">Єнисейтелеком</string>
+    <string name="justtotalk">Просто для спілкування</string>
+    <string name="yota">Yota</string>
+    <!-- Belarus -->
+    <string name="velcom">Velcom</string>
+    <string name="mts_by">МТС Білорусь</string>
+    <string name="life_by">life:) Білорусь</string>
+    <!-- Moldova -->
+    <string name="idc">IDC</string>
+    <string name="mold_cell">MoldCell</string>
+    <!-- Kazakhstan -->
+    <string name="kcell">KCell</string>
+    <string name="activ_kz">Activ Казахстан</string>
+    <string name="beeline_kz">Beeline Казахстан</string>
+    <string name="tele2_kz">Tele2 Казахстан</string>
+
+    <string name="welcome_text"><![CDATA[
+        <b>«Передзвони мені»</b> допоможе відправити запит про необхідність передзвонити, якщо на рахунку закінчилися гроші.
+        Тепер немає необхідності запам\'ятовувати довгі коди запитів, досить вибрати потрібний контакт.
+        <br/>
+        <br/>
+        Виберіть зі списку ваш мобільний оператор і натисніть <b>«ДАЛІ»</b>.
+    ]]></string>
+    <string name="about_message"><![CDATA[
+        «Передзвони мені» — це безкоштовний додаток з відкритим <a href="https://github.com/makovkastar/CallMeBack">вихідним кодом</a>.
+        <br/>
+        Побажання та пропозиції відправляйте на <a href="mailto:makovkastar@gmail.com?subject=Передзвони&nbsp;мені">makovkastar@gmail.com</a>.
+        <br/>
+        <br/>
+        © <a href="https://plus.google.com/+OleksandrMelnykov">Олександр Мельников</a>
+    ]]></string>
+    <string name="rate">Оцінити в Play Store</string>
+    <string name="close">Закрити</string>
+
+    <!-- Dialogs -->
+    <string name="msg_invalid_number"><![CDATA[
+        Відправка запиту на номер <b>%1$s</b> неможлива. Перевірте правильність набору номера.
+    ]]></string>
+    <string name="title_invalid_number">Невірний номер</string>
+    <string name="title_error">Помилка</string>
+    <string name="msg_dialer_not_installed">Додаток для дзвінків не встановлено</string>
+    <string name="msg_pick_contact_not_installed">Додаток для вибору контактів не встановлено</string>
+</resources>
