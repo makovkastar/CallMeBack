@@ -80,6 +80,9 @@ public class ShortcutActivity extends ActionBarActivity implements LoaderManager
                 Bundle args = new Bundle();
                 args.putParcelable(BUNDLE_KEY_CONTACT_URI, data.getData());
                 getSupportLoaderManager().restartLoader(LOADER_CONTACT, args, this);
+            } else {
+                setResult(RESULT_CANCELED);
+                finish();
             }
         }
     }

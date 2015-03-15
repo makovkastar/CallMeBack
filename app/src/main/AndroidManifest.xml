@@ -31,9 +31,7 @@
 
         <activity
             android:name=".ui.ShortcutActivity"
-            android:theme="@style/AppThemeLight"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask">
+            android:theme="@style/AppThemeLight">
 
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
