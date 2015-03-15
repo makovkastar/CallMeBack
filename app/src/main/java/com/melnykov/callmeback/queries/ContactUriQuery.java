@@ -4,9 +4,9 @@ package com.melnykov.callmeback.queries;
 import android.provider.ContactsContract.PhoneLookup;
 
 /**
- * The query to look up for a given number in the Call Log.
+ * The query to look up for a contact uri in the contacts table.
  */
-public class PhoneQuery {
+public class ContactUriQuery {
 
     public static final String[] PROJECTION = new String[]{
         PhoneLookup._ID,

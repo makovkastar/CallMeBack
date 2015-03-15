@@ -18,7 +18,7 @@ import com.makeramen.RoundedTransformationBuilder;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.model.CallLogItem;
-import com.melnykov.callmeback.queries.PhoneQuery;
+import com.melnykov.callmeback.queries.ContactUriQuery;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -98,7 +98,7 @@ public class CallLogAdapter extends BaseAdapter {
         holder.number.setText(item.getNumber());
 
         int placeholderDrawableResId = Prefs.isDarkTheme(mContext) ? R.drawable.contact_photo_placeholder_dark
-                : R.drawable.contact_photo_placeholder_light;
+            : R.drawable.contact_photo_placeholder_light;
         if (mContactUriCache.containsKey(item.getNumber())) {
             Uri contactUri = mContactUriCache.get(item.getNumber());
             Picasso.with(mContext)
@@ -144,29 +144,28 @@ public class CallLogAdapter extends BaseAdapter {
     }
 
     private Uri queryContactUriForPhoneNumber(String number) {
-        Cursor phonesCursor =
-            mContext.getContentResolver().query(
-                Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number)),
-                PhoneQuery.PROJECTION,
-                null,
-                null,
-                null);
+        Cursor cursor = mContext.getContentResolver().query(
+            Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number)),
+            ContactUriQuery.PROJECTION,
+            null,
+            null,
+            null);
 
-        Uri lookupUri;
-        if (phonesCursor != null) {
-            if (phonesCursor.moveToFirst()) {
-                long contactId = phonesCursor.getLong(PhoneQuery.CONTACT_ID);
-                String lookupKey = phonesCursor.getString(PhoneQuery.LOOKUP_KEY);
-                lookupUri = ContactsContract.Contacts.getLookupUri(contactId, lookupKey);
+        Uri contactUri;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                long contactId = cursor.getLong(ContactUriQuery.CONTACT_ID);
+                String lookupKey = cursor.getString(ContactUriQuery.LOOKUP_KEY);
+                contactUri = ContactsContract.Contacts.getLookupUri(contactId, lookupKey);
             } else {
-                lookupUri = null;
+                contactUri = null;
             }
-            phonesCursor.close();
+            cursor.close();
         } else {
             // Failed to fetch the data, ignore this request.
-            lookupUri = null;
+            contactUri = null;
         }
-        return lookupUri;
+        return contactUri;
     }
 
     static class ViewHolder {

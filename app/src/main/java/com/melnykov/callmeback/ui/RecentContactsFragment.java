@@ -30,7 +30,7 @@ import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
-import com.melnykov.callmeback.Utils;
+import com.melnykov.callmeback.utils.Utils;
 import com.melnykov.callmeback.adapters.CallLogAdapter;
 import com.melnykov.callmeback.model.CallLogItem;
 import com.melnykov.callmeback.model.Operator;
@@ -292,11 +292,8 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Check which request it is that we're responding to
         if (requestCode == PICK_CONTACT_REQUEST) {
-            // Make sure the request was successful
             if (resultCode == Activity.RESULT_OK) {
-                // Get the URI that points to the selected contact
                 mContactUri = data.getData();
                 getLoaderManager().restartLoader(LOADER_PHONE_NUMBER, null, this);
             }

@@ -10,9 +10,9 @@ import android.widget.Button;
 import com.crashlytics.android.Crashlytics;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
-import com.melnykov.callmeback.Utils;
+import com.melnykov.callmeback.utils.Utils;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements OperatorsFragment.Callback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

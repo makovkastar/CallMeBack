@@ -1,4 +1,4 @@
-package com.melnykov.callmeback;
+package com.melnykov.callmeback.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.callmeback.Prefs;
+import com.melnykov.callmeback.R;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.List;

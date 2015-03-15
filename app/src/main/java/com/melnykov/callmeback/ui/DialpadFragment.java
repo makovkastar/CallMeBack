@@ -32,7 +32,7 @@ import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
-import com.melnykov.callmeback.Utils;
+import com.melnykov.callmeback.utils.Utils;
 import com.melnykov.callmeback.model.Operator;
 import com.melnykov.fab.FloatingActionButton;
 

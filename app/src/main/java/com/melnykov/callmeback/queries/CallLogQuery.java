@@ -13,12 +13,10 @@ public class CallLogQuery {
     public static final String SORT_ORDER = Calls.DEFAULT_SORT_ORDER;
 
     public static final String[] PROJECTION = new String[]{
-        Calls._ID,
         Calls.NUMBER,
         Calls.CACHED_NAME
     };
 
-    public static final int ID = 0;
-    public static final int NUMBER = 1;
-    public static final int CACHED_NAME = 2;
+    public static final int NUMBER = 0;
+    public static final int CACHED_NAME = 1;
 }

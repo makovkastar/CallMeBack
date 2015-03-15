@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,21 @@ public class OperatorsFragment extends ListFragment {
 
     public static final String TAG = "OperatorsFragment";
 
+    private Callback mCallback;
+
+    public interface Callback {
+        void onOperatorSelected(int operatorId);
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ActionBar actionBar = ((MainActivity) activity).getSupportActionBar();
+        try {
+            mCallback = (Callback) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OperatorsFragment.Callback interface");
+        }
+        ActionBar actionBar = ((ActionBarActivity) activity).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(R.string.select_operator);
         }
@@ -69,7 +81,7 @@ public class OperatorsFragment extends ListFragment {
             @Override
             public void onClick(View view) {
                 Operator operator = getListAdapter().getItem(getListView().getCheckedItemPosition() - 1);
-                ((MainActivity) getActivity()).onOperatorSelected(operator.getId());
+                mCallback.onOperatorSelected(operator.getId());
             }
         });
     }
