@@ -17,7 +17,7 @@ public class ShortcutIconTransformation implements Transformation {
 
     public ShortcutIconTransformation(Context context) {
         mContext = context;
-        mRoundedTransformation =  new RoundedTransformationBuilder()
+        mRoundedTransformation = new RoundedTransformationBuilder()
             .oval(true)
             .build();
     }

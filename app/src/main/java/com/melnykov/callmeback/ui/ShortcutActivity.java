@@ -12,7 +12,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
@@ -24,6 +23,7 @@ import com.melnykov.callmeback.utils.ShortcutIconTransformation;
 import com.melnykov.callmeback.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.squareup.picasso.Transformation;
 
 public class ShortcutActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
     OperatorsFragment.Callback {
@@ -141,9 +141,11 @@ public class ShortcutActivity extends ActionBarActivity implements LoaderManager
             .putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
 
         Uri contactUri = ContactsContract.Contacts.getLookupUri(contactId, lookupKey);
+
+        final Transformation iconTransformation = new ShortcutIconTransformation(getApplicationContext());
         Picasso.with(this)
             .load(contactUri)
-            .transform(new ShortcutIconTransformation(getApplicationContext()))
+            .transform(iconTransformation)
             .into(new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -155,12 +157,26 @@ public class ShortcutActivity extends ActionBarActivity implements LoaderManager
 
                 @Override
                 public void onBitmapFailed(Drawable errorDrawable) {
-                    Intent.ShortcutIconResource iconResource = Intent.ShortcutIconResource
-                        .fromContext(ShortcutActivity.this, R.drawable.contact_photo_placeholder_light);
-                    resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconResource);
+                    Picasso.with(ShortcutActivity.this)
+                        .load(R.drawable.contact_photo_placeholder_light)
+                        .transform(iconTransformation)
+                        .into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
 
-                    setResult(RESULT_OK, resultIntent);
-                    finish();
+                                setResult(RESULT_OK, resultIntent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable errorDrawable) {
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                            }
+                        });
                 }
 
                 @Override
