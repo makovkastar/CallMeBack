@@ -12,6 +12,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
@@ -38,20 +39,27 @@ public class ShortcutActivity extends ActionBarActivity implements LoaderManager
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         Intent intent = getIntent();
         if (intent != null && Intent.ACTION_CREATE_SHORTCUT.equals(intent.getAction())) {
             if (Prefs.isOperatorSelected(this)) {
+                setTheme(android.R.style.Theme_NoDisplay);
+                super.onCreate(savedInstanceState);
+
                 mOperatorId = Prefs.getOperatorId(getApplicationContext());
                 pickContact();
             } else {
+                super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_shortcut);
+
+                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
 
                 if (savedInstanceState != null) {
                     mOperatorId = savedInstanceState.getInt(STATE_KEY_OPERATOR_ID);
                 }
             }
+        } else {
+            throw new RuntimeException("The activity can be started only with Intent.ACTION_CREATE_SHORTCUT");
         }
     }
 
