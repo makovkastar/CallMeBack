@@ -38,7 +38,7 @@ public class Operators {
         new Operator(202, R.string.life_by, R.drawable.life, Country.BELARUS, "*120*2*%s#"),
         // Moldova
         new Operator(300, R.string.idc, R.drawable.idc, Country.MOLDOVA, "887#%s"),
-        new Operator(301, R.string.mold_cell, R.drawable.mold_cell, Country.MOLDOVA, "*111*7%s#"),
+        new Operator(301, R.string.mold_cell, R.drawable.mold_cell, Country.MOLDOVA, "*111*%s#"),
         // Kazakhstan
         new Operator(400, R.string.kcell, R.drawable.kcell, Country.KAZAKHSTAN, "*130*8%s#"),
         new Operator(401, R.string.activ_kz, R.drawable.activ, Country.KAZAKHSTAN, "*130*8%s#"),
