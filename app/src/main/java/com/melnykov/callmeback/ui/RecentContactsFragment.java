@@ -134,20 +134,20 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         switch (id) {
             case LOADER_CALL_LOG:
                 return new CursorLoader(getActivity(),
-                    CallLogQuery.CONTENT_URI,
-                    CallLogQuery.PROJECTION,
-                    CallLogQuery.SELECTION,
-                    null,
-                    CallLogQuery.SORT_ORDER);
+                        CallLogQuery.CONTENT_URI,
+                        CallLogQuery.PROJECTION,
+                        CallLogQuery.SELECTION,
+                        null,
+                        CallLogQuery.SORT_ORDER);
             case LOADER_PHONE_NUMBER:
                 // We only need the NUMBER column, because there will be only one row in the result
                 String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
                 return new CursorLoader(getActivity(),
-                    mContactUri,
-                    projection,
-                    null,
-                    null,
-                    null);
+                        mContactUri,
+                        projection,
+                        null,
+                        null,
+                        null);
             default:
                 throw new IllegalArgumentException("Invalid loader id: " + id);
         }
@@ -210,24 +210,24 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
     private void showAboutDialog() {
         new AlertDialog.Builder(getActivity())
-            .setTitle(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
-            .setMessage(Html.fromHtml(getString(R.string.about_message)))
-            .setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Utils.startPlayStore(getActivity());
-                }
-            })
-            .setNegativeButton(R.string.close, null)
-            .create()
-            .show();
+                .setTitle(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
+                .setMessage(Html.fromHtml(getString(R.string.about_message)))
+                .setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Utils.startPlayStore(getActivity());
+                    }
+                })
+                .setNegativeButton(R.string.close, null)
+                .create()
+                .show();
     }
 
     public String getVersionName() {
         String versionName;
         try {
             PackageInfo info = getActivity().getPackageManager().getPackageInfo(getActivity()
-                .getPackageName(), 0);
+                    .getPackageName(), 0);
             versionName = info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             versionName = VERSION_UNAVAILABLE;
@@ -244,7 +244,9 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.action_dark_theme).setChecked(Prefs.isDarkTheme(getActivity()));
+        if (getActivity() != null) {
+            menu.findItem(R.id.action_dark_theme).setChecked(Prefs.isDarkTheme(getActivity()));
+        }
     }
 
     private List<CallLogItem> convertCursor(Cursor cursor) {
