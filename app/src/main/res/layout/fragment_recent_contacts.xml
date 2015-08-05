@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:fab="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -36,17 +35,13 @@
         android:textColor="?attr/subheadTextColor"
         android:textSize="@dimen/font_subhead"/>
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_dialpad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/ic_dialpad_white_24dp"
-        fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_dark"
-        fab:fab_colorRipple="@color/accent_light"/>
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_dialpad_white_24dp" />
 
 </RelativeLayout>

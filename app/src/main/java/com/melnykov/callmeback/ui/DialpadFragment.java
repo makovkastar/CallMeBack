@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -34,7 +35,6 @@ import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.model.Operator;
 import com.melnykov.callmeback.utils.Utils;
-import com.melnykov.fab.FloatingActionButton;
 
 public class DialpadFragment extends Fragment {
 
@@ -113,8 +113,8 @@ public class DialpadFragment extends Fragment {
             }
         });
 
-        FloatingActionButton dial = (FloatingActionButton) view.findViewById(R.id.dial);
-        dial.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton dialFab = (FloatingActionButton) view.findViewById(R.id.fab_dial);
+        dialFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phoneNumber = mPhoneNumber.getText().toString();
@@ -128,7 +128,7 @@ public class DialpadFragment extends Fragment {
                 }
             }
         });
-        Utils.animateFab(dial, getResources().getInteger(android.R.integer.config_shortAnimTime));
+        Utils.animateFab(dialFab, getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
     @Override

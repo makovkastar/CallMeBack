@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -37,7 +38,6 @@ import com.melnykov.callmeback.model.CallLogItem;
 import com.melnykov.callmeback.model.Operator;
 import com.melnykov.callmeback.queries.CallLogQuery;
 import com.melnykov.callmeback.utils.Utils;
-import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -90,15 +90,15 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton dialpadFab = (FloatingActionButton) view.findViewById(R.id.fab_dialpad);
+        dialpadFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).onShowDialpad();
             }
         });
 
-        Utils.animateFab(fab, getResources().getInteger(android.R.integer.config_shortAnimTime));
+        Utils.animateFab(dialpadFab, getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
     @Override
