@@ -1,6 +1,7 @@
 package com.melnykov.callmeback.ui;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,16 +27,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
-import com.melnykov.callmeback.utils.Utils;
 import com.melnykov.callmeback.adapters.CallLogAdapter;
 import com.melnykov.callmeback.model.CallLogItem;
 import com.melnykov.callmeback.model.Operator;
 import com.melnykov.callmeback.queries.CallLogQuery;
+import com.melnykov.callmeback.utils.Utils;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -208,18 +209,17 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     }
 
     private void showAboutDialog() {
-        new MaterialDialog.Builder(getActivity())
-            .title(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
-            .content(Html.fromHtml(getString(R.string.about_message)))
-            .positiveText(R.string.rate)
-            .negativeText(R.string.close)
-            .callback(new MaterialDialog.ButtonCallback() {
+        new AlertDialog.Builder(getActivity())
+            .setTitle(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
+            .setMessage(Html.fromHtml(getString(R.string.about_message)))
+            .setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
                 @Override
-                public void onPositive(MaterialDialog dialog) {
+                public void onClick(DialogInterface dialogInterface, int i) {
                     Utils.startPlayStore(getActivity());
                 }
             })
-            .build()
+            .setNegativeButton(R.string.close, null)
+            .create()
             .show();
     }
 

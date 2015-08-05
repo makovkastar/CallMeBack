@@ -3,7 +3,7 @@
         <item name="android:windowBackground">@color/window_background_light</item>
 
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_darker</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
 
         <item name="titleTextColor">#de000000</item>
@@ -18,16 +18,16 @@
 
         <item name="iconBackspace">@drawable/ic_backspace_grey600_24dp</item>
 
-        <item name="md_accent_color">@color/primary</item>
-
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <item name="alertDialogTheme">@style/AlertDialogThemeLight</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/window_background_dark</item>
 
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_darker</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
 
         <item name="titleTextColor">#ffffff</item>
@@ -42,9 +42,9 @@
 
         <item name="iconBackspace">@drawable/ic_backspace_white_24dp</item>
 
-        <item name="md_dark_theme">true</item>
-
         <item name="popupTheme">@style/ThemeOverlay.AppCompat</item>
+
+        <item name="alertDialogTheme">@style/AlertDialogThemeDark</item>
     </style>
 
     <style name="DialpadButton">
@@ -56,5 +56,13 @@
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
         <item name="android:textColor">?attr/dialpadButtonTextColor</item>
         <item name="android:textSize">@dimen/font_display2</item>
+    </style>
+    
+    <style name="AlertDialogThemeDark" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="AlertDialogThemeLight" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/primary</item>
     </style>
 </resources>

@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.fab.FloatingActionButton;
@@ -41,20 +41,20 @@ public class Utils {
     }
 
     public static void showDialerNotInstalledDialog(Activity activity) {
-        new MaterialDialog.Builder(activity)
-                .title(R.string.title_error)
-                .content(R.string.msg_dialer_not_installed)
-                .positiveText(R.string.close)
-                .build()
+        new AlertDialog.Builder(activity)
+                .setTitle(R.string.title_error)
+                .setMessage(R.string.msg_dialer_not_installed)
+                .setPositiveButton(R.string.close, null)
+                .create()
                 .show();
     }
 
     public static void showPickContactNotInstalledDialog(Activity activity) {
-        new MaterialDialog.Builder(activity)
-                .title(R.string.title_error)
-                .content(R.string.msg_pick_contact_not_installed)
-                .positiveText(R.string.close)
-                .build()
+        new AlertDialog.Builder(activity)
+                .setTitle(R.string.title_error)
+                .setMessage(R.string.msg_pick_contact_not_installed)
+                .setPositiveButton(R.string.close, null)
+                .create()
                 .show();
     }
 

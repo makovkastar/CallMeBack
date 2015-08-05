@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.Html;
@@ -27,13 +28,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.callmeback.Dialer;
 import com.melnykov.callmeback.Operators;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
-import com.melnykov.callmeback.utils.Utils;
 import com.melnykov.callmeback.model.Operator;
+import com.melnykov.callmeback.utils.Utils;
 import com.melnykov.fab.FloatingActionButton;
 
 public class DialpadFragment extends Fragment {
@@ -165,11 +165,11 @@ public class DialpadFragment extends Fragment {
     }
 
     private void showPhoneNumberError(String phoneNumber) {
-        new MaterialDialog.Builder(getActivity())
-            .title(R.string.title_invalid_number)
-            .content(Html.fromHtml(getString(R.string.msg_invalid_number, phoneNumber)))
-            .positiveText(R.string.close)
-            .build()
+        new AlertDialog.Builder(getActivity())
+            .setTitle(R.string.title_invalid_number)
+            .setMessage(Html.fromHtml(getString(R.string.msg_invalid_number, phoneNumber)))
+            .setPositiveButton(R.string.close, null)
+            .create()
             .show();
     }
 

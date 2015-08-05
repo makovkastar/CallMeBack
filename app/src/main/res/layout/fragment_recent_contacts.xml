@@ -46,7 +46,7 @@
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_dialpad_white_24dp"
         fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/accent_darker"
-        fab:fab_colorRipple="@color/accent_lighter" />
+        fab:fab_colorPressed="@color/accent_dark"
+        fab:fab_colorRipple="@color/accent_light" />
 
 </RelativeLayout>
