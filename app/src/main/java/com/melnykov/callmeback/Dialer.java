@@ -4,7 +4,7 @@ import com.melnykov.callmeback.model.Operator;
 
 public class Dialer {
 
-    public Dialer() {
+    private Dialer() {
         // Prevent instantiation
     }
 

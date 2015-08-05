@@ -11,7 +11,7 @@ import android.provider.ContactsContract;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.melnykov.callmeback.Dialer;
@@ -26,8 +26,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.squareup.picasso.Transformation;
 
-public class ShortcutActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>,
-    OperatorsFragment.Callback {
+public class ShortcutActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+        OperatorsFragment.Callback {
 
     private static final String BUNDLE_KEY_CONTACT_URI = "contact_uri";
     private static final String STATE_KEY_OPERATOR_ID = "operator_id";
@@ -100,11 +100,11 @@ public class ShortcutActivity extends ActionBarActivity implements LoaderManager
         switch (id) {
             case LOADER_CONTACT:
                 return new CursorLoader(this,
-                    (Uri) args.getParcelable(BUNDLE_KEY_CONTACT_URI),
-                    ContactWithPhoneQuery.PROJECTION,
-                    null,
-                    null,
-                    null);
+                        (Uri) args.getParcelable(BUNDLE_KEY_CONTACT_URI),
+                        ContactWithPhoneQuery.PROJECTION,
+                        null,
+                        null,
+                        null);
             default:
                 throw new IllegalArgumentException("Invalid loader id: " + id);
         }
@@ -145,52 +145,52 @@ public class ShortcutActivity extends ActionBarActivity implements LoaderManager
         shortcutIntent.setData(Uri.parse("tel:" + encodedNumber));
 
         final Intent resultIntent = new Intent()
-            .putExtra(Intent.EXTRA_SHORTCUT_NAME, contactName)
-            .putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+                .putExtra(Intent.EXTRA_SHORTCUT_NAME, contactName)
+                .putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
 
         Uri contactUri = ContactsContract.Contacts.getLookupUri(contactId, lookupKey);
 
         final Transformation iconTransformation = new ShortcutIconTransformation(getApplicationContext());
         Picasso.with(this)
-            .load(contactUri)
-            .transform(iconTransformation)
-            .into(new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
+                .load(contactUri)
+                .transform(iconTransformation)
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
 
-                    setResult(RESULT_OK, resultIntent);
-                    finish();
-                }
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                    }
 
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable) {
-                    Picasso.with(ShortcutActivity.this)
-                        .load(R.drawable.contact_photo_placeholder_light)
-                        .transform(iconTransformation)
-                        .into(new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        Picasso.with(ShortcutActivity.this)
+                                .load(R.drawable.contact_photo_placeholder_light)
+                                .transform(iconTransformation)
+                                .into(new Target() {
+                                    @Override
+                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                        resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
 
-                                setResult(RESULT_OK, resultIntent);
-                                finish();
-                            }
+                                        setResult(RESULT_OK, resultIntent);
+                                        finish();
+                                    }
 
-                            @Override
-                            public void onBitmapFailed(Drawable errorDrawable) {
-                            }
+                                    @Override
+                                    public void onBitmapFailed(Drawable errorDrawable) {
+                                    }
 
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                            }
-                        });
-                }
+                                    @Override
+                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                    }
+                                });
+                    }
 
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {
-                }
-            });
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                    }
+                });
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +38,7 @@ public class OperatorsFragment extends ListFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OperatorsFragment.Callback interface");
         }
-        ActionBar actionBar = ((ActionBarActivity) activity).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(R.string.select_operator);
         }

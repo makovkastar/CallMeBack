@@ -2,7 +2,7 @@ package com.melnykov.callmeback.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +11,10 @@ import com.crashlytics.android.Crashlytics;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.utils.Utils;
+
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends ActionBarActivity implements OperatorsFragment.Callback {
+public class MainActivity extends AppCompatActivity implements OperatorsFragment.Callback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

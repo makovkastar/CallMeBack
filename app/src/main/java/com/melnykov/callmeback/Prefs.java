@@ -6,8 +6,8 @@ import android.preference.PreferenceManager;
 
 public class Prefs {
 
-    private static String KEY_OPERATOR_ID = "operator_id";
-    private static String KEY_DARK_THEME = "dark_theme";
+    private static final String KEY_OPERATOR_ID = "operator_id";
+    private static final String KEY_DARK_THEME = "dark_theme";
 
     private Prefs() {
         // Prevent instantiation

@@ -209,35 +209,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         }
     }
 
-    private void showAboutDialog() {
-        AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
-                .setMessage(Html.fromHtml(getString(R.string.about_message)))
-                .setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Utils.startPlayStore(getActivity());
-                    }
-                })
-                .setNegativeButton(R.string.close, null)
-                .create();
-        dialog.show();
-        // Make links clickable inside this dialog.
-        ((TextView) dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    public String getVersionName() {
-        String versionName;
-        try {
-            PackageInfo info = getActivity().getPackageManager().getPackageInfo(getActivity()
-                    .getPackageName(), 0);
-            versionName = info.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            versionName = VERSION_UNAVAILABLE;
-        }
-        return versionName;
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -249,6 +220,22 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         super.onPrepareOptionsMenu(menu);
         if (getActivity() != null) {
             menu.findItem(R.id.action_dark_theme).setChecked(Prefs.isDarkTheme(getActivity()));
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        dialSelectedNumber(mAdapter.getItem(position).getNumber());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                mContactUri = data.getData();
+                getLoaderManager().restartLoader(LOADER_PHONE_NUMBER, null, this);
+            }
         }
     }
 
@@ -265,11 +252,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             }
         }
         return new ArrayList<>(items);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        dialSelectedNumber(mAdapter.getItem(position).getNumber());
     }
 
     private void dialSelectedNumber(String phoneNumber) {
@@ -294,14 +276,32 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_CONTACT_REQUEST) {
-            if (resultCode == Activity.RESULT_OK) {
-                mContactUri = data.getData();
-                getLoaderManager().restartLoader(LOADER_PHONE_NUMBER, null, this);
-            }
+    private void showAboutDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
+                .setMessage(Html.fromHtml(getString(R.string.about_message)))
+                .setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Utils.startPlayStore(getActivity());
+                    }
+                })
+                .setNegativeButton(R.string.close, null)
+                .create();
+        dialog.show();
+        // Make links clickable inside this dialog.
+        ((TextView) dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    private String getVersionName() {
+        String versionName;
+        try {
+            PackageInfo info = getActivity().getPackageManager().getPackageInfo(getActivity()
+                    .getPackageName(), 0);
+            versionName = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            versionName = VERSION_UNAVAILABLE;
         }
+        return versionName;
     }
 }
