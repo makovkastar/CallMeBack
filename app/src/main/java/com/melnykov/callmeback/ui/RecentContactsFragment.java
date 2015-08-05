@@ -16,6 +16,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -209,18 +210,20 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     }
 
     private void showAboutDialog() {
-        new AlertDialog.Builder(getActivity())
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
                 .setMessage(Html.fromHtml(getString(R.string.about_message)))
                 .setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(DialogInterface dialog, int which) {
                         Utils.startPlayStore(getActivity());
                     }
                 })
                 .setNegativeButton(R.string.close, null)
-                .create()
-                .show();
+                .create();
+        dialog.show();
+        // Make links clickable inside this dialog.
+        ((TextView) dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public String getVersionName() {
