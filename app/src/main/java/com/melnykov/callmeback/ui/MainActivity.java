@@ -11,12 +11,13 @@ import com.crashlytics.android.Crashlytics;
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
 import com.melnykov.callmeback.utils.Utils;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ActionBarActivity implements OperatorsFragment.Callback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Crashlytics.start(this);
+        Fabric.with(this, new Crashlytics());
         setTheme(Utils.getTheme(this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

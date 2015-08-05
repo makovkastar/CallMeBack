@@ -1,17 +1,17 @@
 buildscript {
     repositories {
-        maven { url 'http://download.crashlytics.com/maven' }
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 apply plugin: 'com.android.application'
-apply plugin: 'crashlytics'
+apply plugin: 'io.fabric'
 
 repositories {
-    maven { url 'http://download.crashlytics.com/maven' }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 
@@ -39,5 +39,7 @@ dependencies {
     compile 'com.makeramen:roundedimageview:1.4.0'
     compile 'com.melnykov:floatingactionbutton:1.1.0'
     compile "com.android.support:appcompat-v7:22.2.1"
-    compile 'com.crashlytics.android:crashlytics:1.+'
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.0@aar') {
+        transitive = true;
+    }
 }
