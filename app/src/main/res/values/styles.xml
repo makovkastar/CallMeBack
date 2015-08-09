@@ -59,7 +59,7 @@
     </style>
     
     <style name="AlertDialogThemeDark" parent="Theme.AppCompat.Dialog">
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/primary</item>
     </style>
 
     <style name="AlertDialogThemeLight" parent="Theme.AppCompat.Light.Dialog">

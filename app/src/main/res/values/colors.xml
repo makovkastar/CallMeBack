@@ -7,6 +7,8 @@
     <color name="invalid">#f44336</color>
     <color name="valid">#4caf50</color>
 
+    <color name="fab_dialpad">#4CAF50</color>
+
     <color name="window_background_light">#fafafa</color>
     <color name="window_background_dark">#303030</color>
 </resources>

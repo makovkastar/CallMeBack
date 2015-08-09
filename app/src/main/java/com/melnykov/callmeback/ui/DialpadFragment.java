@@ -128,7 +128,6 @@ public class DialpadFragment extends Fragment {
                 }
             }
         });
-        Utils.animateFab(dialFab, getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
     @Override

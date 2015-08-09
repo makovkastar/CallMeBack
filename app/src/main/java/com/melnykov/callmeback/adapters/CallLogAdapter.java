@@ -1,16 +1,16 @@
 package com.melnykov.callmeback.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,18 +28,24 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CallLogAdapter extends BaseAdapter {
+public class CallLogAdapter extends RecyclerView.Adapter<CallLogAdapter.ViewHolder> {
 
-    private final Context mContext;
+    public interface OnItemClickListener {
+        void onItemClick(CallLogItem callLogItem);
+    }
+
+    private final Activity mActivity;
+    private final OnItemClickListener mOnItemClickListener;
     private final Map<String, Uri> mContactUriCache;
     private final ExecutorService mExecutorService;
     private final Handler mHandler;
     private final Transformation mAvatarTransformation;
-    private List<CallLogItem> mItems;
-    private boolean mLoading;
 
-    public CallLogAdapter(Context context) {
-        mContext = context;
+    private List<CallLogItem> mItems;
+
+    public CallLogAdapter(Activity activity, OnItemClickListener onItemClickListener) {
+        mActivity = activity;
+        mOnItemClickListener = onItemClickListener;
         mContactUriCache = new HashMap<>();
         mExecutorService = Executors.newCachedThreadPool();
         mHandler = new Handler() {
@@ -49,28 +55,51 @@ public class CallLogAdapter extends BaseAdapter {
             }
         };
         mAvatarTransformation = new RoundedTransformationBuilder()
-            .oval(true)
-            .build();
+                .oval(true)
+                .build();
     }
 
     @Override
-    public boolean isEmpty() {
-        if (mLoading) {
-            // We don't want the empty state to show when loading.
-            return false;
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(
+                R.layout.contact_list_item, viewGroup, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        final CallLogItem item = mItems.get(position);
+        viewHolder.name.setText(TextUtils.isEmpty(item.getName()) ? item.getNumber() : item.getName());
+        viewHolder.number.setText(item.getNumber());
+
+        int placeholderDrawableResId = Prefs.isDarkTheme(mActivity) ? R.drawable.contact_photo_placeholder_dark
+                : R.drawable.contact_photo_placeholder_light;
+        if (mContactUriCache.containsKey(item.getNumber())) {
+            Uri contactUri = mContactUriCache.get(item.getNumber());
+            Picasso.with(mActivity)
+                    .load(contactUri)
+                    .placeholder(placeholderDrawableResId)
+                    .fit()
+                    .centerCrop()
+                    .transform(mAvatarTransformation)
+                    .into(viewHolder.avatar);
         } else {
-            return super.isEmpty();
+            if (!mExecutorService.isShutdown()) {
+                // Request the contact details immediately since they are currently missing.
+                mExecutorService.submit(new ContactUriFetcher(item.getNumber()));
+            }
+            Picasso.with(mActivity)
+                    .load(placeholderDrawableResId)
+                    .fit()
+                    .into(viewHolder.avatar);
         }
-    }
 
-    @Override
-    public int getCount() {
-        return mItems == null ? 0 : mItems.size();
-    }
-
-    @Override
-    public CallLogItem getItem(int position) {
-        return mItems.get(position);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnItemClickListener.onItemClick(item);
+            }
+        });
     }
 
     @Override
@@ -79,51 +108,8 @@ public class CallLogAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.contact_list_item, parent, false);
-            holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.number = (TextView) convertView.findViewById(R.id.number);
-            holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        CallLogItem item = getItem(position);
-        holder.name.setText(TextUtils.isEmpty(item.getName()) ? item.getNumber() : item.getName());
-        holder.number.setText(item.getNumber());
-
-        int placeholderDrawableResId = Prefs.isDarkTheme(mContext) ? R.drawable.contact_photo_placeholder_dark
-            : R.drawable.contact_photo_placeholder_light;
-        if (mContactUriCache.containsKey(item.getNumber())) {
-            Uri contactUri = mContactUriCache.get(item.getNumber());
-            Picasso.with(mContext)
-                .load(contactUri)
-                .placeholder(placeholderDrawableResId)
-                .fit()
-                .centerCrop()
-                .transform(mAvatarTransformation)
-                .into(holder.avatar);
-        } else {
-            if (!mExecutorService.isShutdown()) {
-                // Request the contact details immediately since they are currently missing.
-                mExecutorService.submit(new ContactUriFetcher(item.getNumber()));
-            }
-            Picasso.with(mContext)
-                .load(placeholderDrawableResId)
-                .fit()
-                .into(holder.avatar);
-        }
-
-        return convertView;
-    }
-
-    public void setLoading(boolean loading) {
-        mLoading = loading;
+    public int getItemCount() {
+        return mItems == null ? 0 : mItems.size();
     }
 
     public void swapItems(List<CallLogItem> items) {
@@ -133,8 +119,6 @@ public class CallLogAdapter extends BaseAdapter {
         mItems = items;
         if (items != null) {
             notifyDataSetChanged();
-        } else {
-            notifyDataSetInvalidated();
         }
     }
 
@@ -144,12 +128,12 @@ public class CallLogAdapter extends BaseAdapter {
     }
 
     private Uri queryContactUriForPhoneNumber(String number) {
-        Cursor cursor = mContext.getContentResolver().query(
-            Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number)),
-            ContactUriQuery.PROJECTION,
-            null,
-            null,
-            null);
+        Cursor cursor = mActivity.getContentResolver().query(
+                Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number)),
+                ContactUriQuery.PROJECTION,
+                null,
+                null,
+                null);
 
         Uri contactUri;
         if (cursor != null) {
@@ -168,10 +152,20 @@ public class CallLogAdapter extends BaseAdapter {
         return contactUri;
     }
 
-    static class ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        View itemView;
         ImageView avatar;
         TextView name;
         TextView number;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            this.itemView = itemView;
+            this.name = (TextView) itemView.findViewById(R.id.name);
+            this.number = (TextView) itemView.findViewById(R.id.number);
+            this.avatar = (ImageView) itemView.findViewById(R.id.avatar);
+        }
     }
 
     private class ContactUriFetcher implements Runnable {

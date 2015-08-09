@@ -10,12 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -24,9 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.melnykov.callmeback.Dialer;
@@ -37,6 +37,7 @@ import com.melnykov.callmeback.adapters.CallLogAdapter;
 import com.melnykov.callmeback.model.CallLogItem;
 import com.melnykov.callmeback.model.Operator;
 import com.melnykov.callmeback.queries.CallLogQuery;
+import com.melnykov.callmeback.utils.DividerItemDecoration;
 import com.melnykov.callmeback.utils.Utils;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class RecentContactsFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
+public class RecentContactsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,CallLogAdapter.OnItemClickListener {
 
     public static final String TAG = "RecentContactsFragment";
 
@@ -56,31 +57,28 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
 
     private static final String VERSION_UNAVAILABLE = "N/A";
 
+    private RecyclerView mRecyclerView;
+    private TextView mEmptyText;
     private CallLogAdapter mAdapter;
     private Uri mContactUri;
     private Operator mOperator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_recent_contacts, container, false);
-
-        ListView list = (ListView) root.findViewById(android.R.id.list);
-        View listFooter = inflater.inflate(R.layout.recent_contacts_footer, null);
-
-        list.addFooterView(listFooter, null, false);
-        list.setFooterDividersEnabled(false);
-
-        return root;
+        return inflater.inflate(R.layout.fragment_recent_contacts, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getListView().setOnItemClickListener(this);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
 
-        TextView emptyView = (TextView) view.findViewById(android.R.id.empty);
-        emptyView.setText(Html.fromHtml(getString(R.string.no_recent_contacts)));
+        mEmptyText = (TextView) view.findViewById(android.R.id.empty);
+        mEmptyText.setText(Html.fromHtml(getString(R.string.no_recent_contacts)));
 
         Button allContacts = (Button) view.findViewById(R.id.all_contacts);
         allContacts.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +88,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             }
         });
 
-        FloatingActionButton dialpadFab = (FloatingActionButton) view.findViewById(R.id.fab_dialpad);
+        final FloatingActionButton dialpadFab = (FloatingActionButton) view.findViewById(R.id.fab_dialpad);
         dialpadFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,13 +96,21 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
             }
         });
 
-        Utils.animateFab(dialpadFab, getResources().getInteger(android.R.integer.config_shortAnimTime));
+        dialpadFab.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                dialpadFab.show();
+                dialpadFab.removeOnLayoutChangeListener(this);
+            }
+        });
+
+        setEmptyTextVisible(false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setListAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -115,8 +121,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         int operatorId = Prefs.getOperatorId(getActivity().getApplicationContext());
         mOperator = Operators.getById(operatorId);
 
-        mAdapter = new CallLogAdapter(getActivity());
-        mAdapter.setLoading(true);
+        mAdapter = new CallLogAdapter(getActivity(), this);
 
         getLoaderManager().initLoader(LOADER_CALL_LOG, null, this);
     }
@@ -158,8 +163,13 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         switch (loader.getId()) {
             case LOADER_CALL_LOG:
-                mAdapter.setLoading(false);
-                mAdapter.swapItems(convertCursor(cursor));
+                List<CallLogItem> callLogItems = convertCursor(cursor);
+                if (callLogItems.isEmpty()) {
+                    setEmptyTextVisible(true);
+                } else {
+                    mAdapter.swapItems(callLogItems);
+                    setEmptyTextVisible(false);
+                }
                 break;
             case LOADER_PHONE_NUMBER:
                 if (cursor != null && cursor.moveToFirst()) {
@@ -167,7 +177,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                             ContactsContract.CommonDataKinds.Phone.NUMBER));
                     dialSelectedNumber(number);
                 }
-                getLoaderManager().destroyLoader(loader.getId());
                 mContactUri = null;
         }
     }
@@ -176,7 +185,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     public void onLoaderReset(Loader<Cursor> loader) {
         switch (loader.getId()) {
             case LOADER_CALL_LOG:
-                mAdapter.setLoading(false);
                 mAdapter.swapItems(null);
                 break;
             case LOADER_PHONE_NUMBER:
@@ -224,11 +232,6 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        dialSelectedNumber(mAdapter.getItem(position).getNumber());
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_CONTACT_REQUEST) {
@@ -237,6 +240,11 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
                 getLoaderManager().restartLoader(LOADER_PHONE_NUMBER, null, this);
             }
         }
+    }
+
+    @Override
+    public void onItemClick(CallLogItem callLogItem) {
+        dialSelectedNumber(callLogItem.getNumber());
     }
 
     private List<CallLogItem> convertCursor(Cursor cursor) {
@@ -276,6 +284,11 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         }
     }
 
+    private void setEmptyTextVisible(boolean visible) {
+        mRecyclerView.setVisibility(visible ? View.GONE : View.VISIBLE);
+        mEmptyText.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
     private void showAboutDialog() {
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.about_title, getString(R.string.app_name), getVersionName()))
@@ -291,6 +304,7 @@ public class RecentContactsFragment extends ListFragment implements LoaderManage
         dialog.show();
         // Make links clickable inside this dialog.
         ((TextView) dialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) dialog.findViewById(android.R.id.message)).setLinkTextColor(getResources().getColor(R.color.primary));
     }
 
     private String getVersionName() {

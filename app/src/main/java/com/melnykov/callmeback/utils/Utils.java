@@ -7,8 +7,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.melnykov.callmeback.Prefs;
@@ -56,18 +58,6 @@ public class Utils {
                 .setPositiveButton(R.string.close, null)
                 .create()
                 .show();
-    }
-
-    public static void animateFab(FloatingActionButton fab, long duration) {
-        fab.setScaleX(0);
-        fab.setScaleY(0);
-        fab.animate()
-                .scaleX(1)
-                .scaleY(1)
-                .setDuration(duration)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .setStartDelay(500)
-                .start();
     }
 
     public static boolean canPlaceCallsTo(String number) {
