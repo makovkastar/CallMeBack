@@ -45,7 +45,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class RecentContactsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,CallLogAdapter.OnItemClickListener {
+public class RecentContactsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, CallLogAdapter.OnItemClickListener {
 
     public static final String TAG = "RecentContactsFragment";
 
@@ -92,17 +92,11 @@ public class RecentContactsFragment extends Fragment implements LoaderManager.Lo
         dialpadFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialpadFab.hide();
                 ((MainActivity) getActivity()).onShowDialpad();
             }
         });
-
-        dialpadFab.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
-                dialpadFab.show();
-                dialpadFab.removeOnLayoutChangeListener(this);
-            }
-        });
+        Utils.showFabWithAnimation(dialpadFab);
 
         setEmptyTextVisible(false);
     }

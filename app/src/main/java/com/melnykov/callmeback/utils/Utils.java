@@ -7,11 +7,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewCompat;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.ViewTreeObserver;
+import android.view.animation.Interpolator;
 
 import com.melnykov.callmeback.Prefs;
 import com.melnykov.callmeback.R;
@@ -23,6 +24,8 @@ public class Utils {
     private static final String UNKNOWN_NUMBER = "-1";
     private static final String PRIVATE_NUMBER = "-2";
     private static final String PAYPHONE_NUMBER = "-3";
+
+    private static final Interpolator FAB_INTERPOLATOR = new FastOutSlowInInterpolator();
 
     private Utils() {
         // Prevent instantiation
@@ -73,5 +76,23 @@ public class Utils {
         } else {
             return R.style.AppThemeLight;
         }
+    }
+
+    public static void showFabWithAnimation(final FloatingActionButton fab) {
+        fab.setVisibility(View.INVISIBLE);
+        fab.setScaleX(0.0F);
+        fab.setScaleY(0.0F);
+        fab.setAlpha(0.0F);
+        fab.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override public boolean onPreDraw() {
+                fab.getViewTreeObserver().removeOnPreDrawListener(this);
+                fab.postDelayed(new Runnable() {
+                    @Override public void run() {
+                        fab.show();
+                    }
+                }, 500);
+                return true;
+            }
+        });
     }
 }

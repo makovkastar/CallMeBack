@@ -41,8 +41,11 @@ public class DialpadFragment extends Fragment {
     public static final String TAG = "DialpadFragment";
 
     private Operator mOperator;
+
     private EditText mPhoneNumber;
     private ImageView mHeader;
+    private FloatingActionButton mDialFab;
+
     private boolean mIsAnimationRunning = false;
     private ValueAnimator mColorAnimation;
 
@@ -113,8 +116,8 @@ public class DialpadFragment extends Fragment {
             }
         });
 
-        FloatingActionButton dialFab = (FloatingActionButton) view.findViewById(R.id.fab_dial);
-        dialFab.setOnClickListener(new View.OnClickListener() {
+        mDialFab = (FloatingActionButton) view.findViewById(R.id.fab_dial);
+        mDialFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phoneNumber = mPhoneNumber.getText().toString();
@@ -128,6 +131,7 @@ public class DialpadFragment extends Fragment {
                 }
             }
         });
+       Utils.showFabWithAnimation(mDialFab);
     }
 
     @Override
@@ -140,6 +144,7 @@ public class DialpadFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_recent_contacts:
+                mDialFab.hide();
                 ((MainActivity) getActivity()).onHideDialpad();
                 return true;
             default:
@@ -165,11 +170,11 @@ public class DialpadFragment extends Fragment {
 
     private void showPhoneNumberError(String phoneNumber) {
         new AlertDialog.Builder(getActivity())
-            .setTitle(R.string.title_invalid_number)
-            .setMessage(Html.fromHtml(getString(R.string.msg_invalid_number, phoneNumber)))
-            .setPositiveButton(R.string.close, null)
-            .create()
-            .show();
+                .setTitle(R.string.title_invalid_number)
+                .setMessage(Html.fromHtml(getString(R.string.msg_invalid_number, phoneNumber)))
+                .setPositiveButton(R.string.close, null)
+                .create()
+                .show();
     }
 
     private void animateHeader(final int colorTo, final int repeatCount, boolean cancelPrevious) {
